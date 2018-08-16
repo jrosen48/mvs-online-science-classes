@@ -9,6 +9,7 @@ library(RANN) #Fast Nearest Neighbor Search
 library(mice) #Multivariate Imputation by Chained Equations
 library(VIM) #Visualization and Imputation of Missing Values
 library(randomForest)
+library(here)
 
 #I think we don't actually need these
 #library(pROC)
@@ -19,7 +20,8 @@ library(randomForest)
 # 2. Random descriptive analyses
 #-----------------------------
 
-online_science_motivation <- read_csv("online-science-motivation.csv")
+f <- here::here("online-science-motivation.csv")
+online_science_motivation <- read_csv(f)
 
 online_science_motivation %>%
     count(enrollment_reason)
