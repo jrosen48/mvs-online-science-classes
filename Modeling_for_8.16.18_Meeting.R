@@ -18,6 +18,9 @@ library(randomForest)
 #-----------------------------
 # 2. Random descriptive analyses
 #-----------------------------
+
+online_science_motivation <- read_csv("online-science-motivation.csv")
+
 online_science_motivation %>%
     count(enrollment_reason)
 
