@@ -1,4 +1,4 @@
-
+#Updated 8.23.18
 #-----------------------------
 # 1. Loading packages
 #-----------------------------
@@ -39,31 +39,6 @@ md.pattern(online_science_motivation)
 #Use VIM package to visualize what is missing in our dataset 
 aggr_plot <- aggr(online_science_motivation, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, labels=names(data), cex.axis=.7, gap=3, ylab=c("Histogram of missing data","Pattern"))
 # https://datascienceplus.com/imputing-missing-data-with-r-mice-package/
-
-#*******************************************************************************************
-#ORIGINAL imputation
-    #trying normal imputation
-    #it works
-    #BUT
-    #centers/imputes things that we don't want, e.g. student ID and outcome variables
-    #our goal is to only impute predictors
-#*******************************************************************************************
-#SECOND TRY imputation (this doesn't work)
-    #don't want to impute: student_ID, section, outcomes
-    #DO want to impute: pre and post motivation
-#impute <- 
- #   online_science_motivation %>%
- #   select(pre_int, pre_uv, pre_percomp, pre_tv, post_int, post_uv, post_tv, post_percomp) %>%
- #   preProcess(online_science_motivation, method=c("center","scale","knnImpute")) ##using pre-process function in caret to create a dataset to be imputed 
-  
-#dat.imputed <- predict(impute, online_science_motivation) ##impute
-
-#compare imputed vs. non-imputed data
-#   skim(online_science_motivation)
-#   skim(dat.imputed)
-
-#This might be helpful for troubleshooting
-    #   https://stackoverflow.com/questions/14023423/how-to-preprocess-features-when-some-of-them-are-factors
 
 #-----------------------------
 # 3 TEMP WE WILL CHANGE THIS.  Placeholder until we figure out multiple imputation
