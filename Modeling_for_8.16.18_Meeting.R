@@ -24,12 +24,12 @@ online_science_motivation %>%
 #-----------------------------
 # 3. Pre-process and impute missing data - PROBLEMS here, deleting missing data listwise for now to get RFs done, see 3Temp
 #-----------------------------
-
-##MISSING DATA STEPS
+#####MISSING DATA STEPS
     #Note on August 23 - based on our meeting, we decided NOT to impute Pre-data and also not to use it as a predictor
     #so, whatever we do for the imputation, we will not impute Pre-data
 
 set.seed(2019)
+
 #Trying imputation with mice - step 1 - looking at missing data pattern
 md.pattern(online_science_motivation)
 
@@ -38,7 +38,15 @@ aggr_plot <- aggr(online_science_motivation, col=c('navyblue','red'), numbers=TR
 # https://datascienceplus.com/imputing-missing-data-with-r-mice-package/
 
 
-##CREATING FINAL DATASET FOR ANALYSES STEPS
+#####CREATING FINAL DATASET FOR ANALYSES STEPS
+#Select only data that are complete on pre-motivation and final grade
+    #EMILY WILL WORK ON THIS TOMORROW 8.24.18
+##data <- 
+
+#Eww delete this code it is gross but I am just testing to see if I can get the random forest to run    
+data <- na.omit(online_science_motivation)
+#this takes us down from 662 observations of 17 variables to 91 observations of 17 variables :(
+
 skim(data)
 
 #-----------------------------
@@ -62,12 +70,11 @@ skim(data_test)
 #-----------------------------
 colnames(data_test)
 #Outcome of interest = final grade
-#Inputs = pre and post motivation
+#Inputs = ONLY post motivation - considering our August 16 decision that the "pre" data is icky
 
-#Training
+#Training Model: Predicting Final grade based on post-test motivation
 set.seed(2019)
-RF_FinalGrade <-randomForest(formula = final_grade ~  pre_int + pre_uv + pre_percomp + pre_tv
-                             post_int + post_uv + post_percomp + post_tv,
+RF_FinalGrade <-randomForest(formula = final_grade ~ post_int + post_uv + post_percomp + post_tv,
                              data = data_train,
                              method = "regression")
 
