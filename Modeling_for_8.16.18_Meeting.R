@@ -11,11 +11,6 @@ library(VIM) #Visualization and Imputation of Missing Values
 library(randomForest)
 library(here)
 
-#I think we don't actually need these
-#library(pROC)
-#library(pscl)
-#
-
 #-----------------------------
 # 2. Random descriptive analyses
 #-----------------------------
@@ -29,10 +24,12 @@ online_science_motivation %>%
 #-----------------------------
 # 3. Pre-process and impute missing data - PROBLEMS here, deleting missing data listwise for now to get RFs done, see 3Temp
 #-----------------------------
+
+##MISSING DATA STEPS
+    #Note on August 23 - based on our meeting, we decided NOT to impute Pre-data and also not to use it as a predictor
+    #so, whatever we do for the imputation, we will not impute Pre-data
+
 set.seed(2019)
-
-#str(online_science_motivation)
-
 #Trying imputation with mice - step 1 - looking at missing data pattern
 md.pattern(online_science_motivation)
 
@@ -40,13 +37,8 @@ md.pattern(online_science_motivation)
 aggr_plot <- aggr(online_science_motivation, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, labels=names(data), cex.axis=.7, gap=3, ylab=c("Histogram of missing data","Pattern"))
 # https://datascienceplus.com/imputing-missing-data-with-r-mice-package/
 
-#-----------------------------
-# 3 TEMP WE WILL CHANGE THIS.  Placeholder until we figure out multiple imputation
-#-----------------------------
 
-data <- na.omit(online_science_motivation)
-    #this takes us down from 662 observations of 17 variables to 91 observations of 17 variables :(
-
+##CREATING FINAL DATASET FOR ANALYSES STEPS
 skim(data)
 
 #-----------------------------
@@ -113,3 +105,17 @@ FinalGrade_resid_plot <- plot(density(Residuals_FinalGrade),
                           main = "Absolute Value of Out-of-Sample\n Residuals for Final Grade Model",
                           xlab = "Residuals",
                           ylab = "Density")
+
+
+
+###Old stuff we are not doing anymore
+
+#-----------------------------
+# 3 TEMP WE WILL CHANGE THIS.  Placeholder until we figure out multiple imputation
+#-----------------------------
+
+#data <- na.omit(online_science_motivation)
+#this takes us down from 662 observations of 17 variables to 91 observations of 17 variables :(
+
+
+#str(online_science_motivation)
