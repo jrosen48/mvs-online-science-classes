@@ -1,4 +1,4 @@
-
+#Updated 8.23.18
 #-----------------------------
 # 1. Loading packages
 #-----------------------------
@@ -10,11 +10,6 @@ library(mice) #Multivariate Imputation by Chained Equations
 library(VIM) #Visualization and Imputation of Missing Values
 library(randomForest)
 library(here)
-
-#I think we don't actually need these
-#library(pROC)
-#library(pscl)
-#
 
 #-----------------------------
 # 2. Random descriptive analyses
@@ -29,9 +24,11 @@ online_science_motivation %>%
 #-----------------------------
 # 3. Pre-process and impute missing data - PROBLEMS here, deleting missing data listwise for now to get RFs done, see 3Temp
 #-----------------------------
-set.seed(2019)
+#####MISSING DATA STEPS
+    #Note on August 23 - based on our meeting, we decided NOT to impute Pre-data and also not to use it as a predictor
+    #so, whatever we do for the imputation, we will not impute Pre-data
 
-#str(online_science_motivation)
+set.seed(2019)
 
 #Trying imputation with mice - step 1 - looking at missing data pattern
 md.pattern(online_science_motivation)
@@ -40,37 +37,15 @@ md.pattern(online_science_motivation)
 aggr_plot <- aggr(online_science_motivation, col=c('navyblue','red'), numbers=TRUE, sortVars=TRUE, labels=names(data), cex.axis=.7, gap=3, ylab=c("Histogram of missing data","Pattern"))
 # https://datascienceplus.com/imputing-missing-data-with-r-mice-package/
 
-#*******************************************************************************************
-#ORIGINAL imputation
-    #trying normal imputation
-    #it works
-    #BUT
-    #centers/imputes things that we don't want, e.g. student ID and outcome variables
-    #our goal is to only impute predictors
-#*******************************************************************************************
-#SECOND TRY imputation (this doesn't work)
-    #don't want to impute: student_ID, section, outcomes
-    #DO want to impute: pre and post motivation
-#impute <- 
- #   online_science_motivation %>%
- #   select(pre_int, pre_uv, pre_percomp, pre_tv, post_int, post_uv, post_tv, post_percomp) %>%
- #   preProcess(online_science_motivation, method=c("center","scale","knnImpute")) ##using pre-process function in caret to create a dataset to be imputed 
-  
-#dat.imputed <- predict(impute, online_science_motivation) ##impute
 
-#compare imputed vs. non-imputed data
-#   skim(online_science_motivation)
-#   skim(dat.imputed)
+#####CREATING FINAL DATASET FOR ANALYSES STEPS
+#Select only data that are complete on pre-motivation and final grade
+    #EMILY WILL WORK ON THIS TOMORROW 8.24.18
+##data <- 
 
-#This might be helpful for troubleshooting
-    #   https://stackoverflow.com/questions/14023423/how-to-preprocess-features-when-some-of-them-are-factors
-
-#-----------------------------
-# 3 TEMP WE WILL CHANGE THIS.  Placeholder until we figure out multiple imputation
-#-----------------------------
-
+#Eww delete this code it is gross but I am just testing to see if I can get the random forest to run    
 data <- na.omit(online_science_motivation)
-    #this takes us down from 662 observations of 17 variables to 91 observations of 17 variables :(
+#this takes us down from 662 observations of 17 variables to 91 observations of 17 variables :(
 
 skim(data)
 
@@ -94,10 +69,9 @@ skim(data_test)
 #-----------------------------
 colnames(data_test)
 #Outcome of interest = final grade
-#Inputs = pre and post motivation
+#Inputs = ONLY post motivation - considering our August 16 decision that the "pre" data is icky
 
-#Training
-RF_FinalGrade <-randomForest(formula = final_grade ~  pre_int + pre_uv + pre_percomp + pre_tv,
+RF_FinalGrade <-randomForest(formula = final_grade ~ post_int + post_uv + post_percomp + post_tv,
                              data = data_train,
                              method = "regression")
 
@@ -107,7 +81,7 @@ FinalGrade_prediction <- predict(object = RF_FinalGrade,   # model object
 #this above returns a matrix
 #NOW - correspond this matrix to the info we have
 
-plot(density(FinalGrade_prediction))    #check out the predictions that are generated to see what they look like
+plot(density(FinalGrade_prediction)) #check out the predictions that are generated to see what they look like
 
 #Take test data frames and cbind new prediction matrix
 FinalGrade_data <- cbind(data_test, FinalGrade_prediction)
@@ -133,3 +107,17 @@ FinalGrade_resid_plot <- plot(density(Residuals_FinalGrade),
                           main = "Absolute Value of Out-of-Sample\n Residuals for Final Grade Model",
                           xlab = "Residuals",
                           ylab = "Density")
+
+
+
+###Old stuff we are not doing anymore
+
+#-----------------------------
+# 3 TEMP WE WILL CHANGE THIS.  Placeholder until we figure out multiple imputation
+#-----------------------------
+
+#data <- na.omit(online_science_motivation)
+#this takes us down from 662 observations of 17 variables to 91 observations of 17 variables :(
+
+
+#str(online_science_motivation)
