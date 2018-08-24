@@ -1,4 +1,4 @@
-# blah blah blah blah
+
 #-----------------------------
 # 1. Loading packages
 #-----------------------------
@@ -77,7 +77,6 @@ skim(data)
 #-----------------------------
 # 4.  Data splitting: Creating training and testing dataset
 #-----------------------------
-set.seed(2019)
 trainIndex <- createDataPartition(data$final_grade,
                                   p = .8, list = FALSE)
 
@@ -98,15 +97,11 @@ colnames(data_test)
 #Inputs = pre and post motivation
 
 #Training
-set.seed(2019)
-RF_FinalGrade <-randomForest(formula = final_grade ~  pre_int + pre_uv + pre_percomp + pre_tv
-                             post_int + post_uv + post_percomp + post_tv,
+RF_FinalGrade <-randomForest(formula = final_grade ~  pre_int + pre_uv + pre_percomp + pre_tv,
                              data = data_train,
                              method = "regression")
 
 #Generate Predicted classes using the model object
-
-set.seed(2019)
 FinalGrade_prediction <- predict(object = RF_FinalGrade,   # model object 
                              newdata = data_test)  # train dataset
 #this above returns a matrix
