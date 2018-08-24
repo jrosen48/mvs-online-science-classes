@@ -70,7 +70,7 @@ colnames(data_test)
 #Outcome of interest = final grade
 #Inputs = ONLY post motivation - considering our August 16 decision that the "pre" data is icky
 
-RF_FinalGrade <-randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + pre_tv,
+RF_FinalGrade <-randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent,
                              data = data_train,
                              method = "regression")
 
