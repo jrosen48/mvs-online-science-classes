@@ -41,11 +41,10 @@ aggr_plot <- aggr(online_science_motivation, col=c('navyblue','red'), numbers=TR
 #####CREATING FINAL DATASET FOR ANALYSES STEPS
 #Select only data that are complete on pre-motivation and final grade
     #EMILY WILL WORK ON THIS TOMORROW 8.24.18
-##data <- 
-
-#Eww delete this code it is gross but I am just testing to see if I can get the random forest to run    
-data <- na.omit(online_science_motivation)
-#this takes us down from 662 observations of 17 variables to 91 observations of 17 variables :(
+data <- online_science_motivation %>% 
+        select(pre_int, pre_uv,  pre_percomp, time_spent, final_grade)
+   
+data <- na.omit(data)
 
 skim(data)
 
@@ -101,14 +100,11 @@ Emily_residuals<- function(pred, obs){
 
 Residuals_FinalGrade <- Emily_residuals(FinalGrade_data$FinalGrade_prediction , FinalGrade_data$final_grade)
 
-
 #plot the errors in a density plot
 FinalGrade_resid_plot <- plot(density(Residuals_FinalGrade), 
                           main = "Absolute Value of Out-of-Sample\n Residuals for Final Grade Model",
                           xlab = "Residuals",
                           ylab = "Density")
-
-
 
 ###Old stuff we are not doing anymore
 
