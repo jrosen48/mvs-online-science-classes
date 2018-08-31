@@ -11,6 +11,13 @@ library(VIM) #Visualization and Imputation of Missing Values
 library(randomForest)
 library(here)
 
+#Create a function to calculate the (predicted - actual: RESIDUAL)
+#take the absolute value
+Emily_residuals<- function(pred, obs){
+    diff <- pred-obs
+    return(abs(diff))
+}
+
 #-----------------------------
 # 2. Random descriptive analyses
 #-----------------------------
@@ -42,7 +49,7 @@ aggr_plot <- aggr(online_science_motivation, col=c('navyblue','red'), numbers=TR
 #Select only data that are complete on pre-motivation and final grade
     #EMILY WILL WORK ON THIS TOMORROW 8.24.18
 data <- online_science_motivation %>% 
-        select(pre_int, pre_uv,  pre_percomp, time_spent, final_grade)
+        select(pre_int, pre_uv,  pre_percomp, time_spent, final_grade, subject, enrollment_reason, enrollment_status)
    
 data <- na.omit(data)
 
@@ -70,13 +77,51 @@ colnames(data_test)
 #Outcome of interest = final grade
 #Inputs = ONLY post motivation - considering our August 16 decision that the "pre" data is icky
 
-RF_FinalGrade <-randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent,
+data_test <- data_test %>% 
+    mutate_if(is.character, as.factor)
+
+data_train <- data_train %>% 
+    mutate_if(is.character, as.factor)
+
+RF_FinalGrade <-randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent +
+                                 enrollment_reason + enrollment_status + subject,
                              data = data_train,
                              method = "regression")
+
+RF_FinalGrade
+summary(RF_FinalGrade)
 
 #Generate Predicted classes using the model object
 FinalGrade_prediction <- predict(object = RF_FinalGrade,   # model object 
                              newdata = data_test)  # train dataset
+
+FinalGrade_prediction <- as.data.frame(FinalGrade_prediction)
+
+d <- data.frame(data_test, FinalGrade_prediction)
+
+p <- d %>% 
+    as_tibble() %>% 
+    rename(pred_final_grade = FinalGrade_prediction) %>% 
+    mutate(abs_diff = Emily_residuals(final_grade, pred_final_grade),
+           diff = final_grade - pred_final_grade)
+
+p %>% summarize_all(funs(mean))
+
+p %>% 
+    select(final_grade, pred_final_grade) %>% 
+    gather(key, val, final_grade:pred_final_grade) %>% 
+    ggplot(aes(x = val, fill = key, color = key)) +
+    geom_density(alpha = .4)
+
+p %>% 
+    select(final_grade, pred_final_grade, time_spent) %>% 
+    ggplot(aes(x = final_grade, y = pred_final_grade, color = time_spent)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = F) +
+    ylim(0, 100) +
+    xlim(0, 100) +
+    scale_color_viridis_c()
+    
 #this above returns a matrix
 #NOW - correspond this matrix to the info we have
 
@@ -87,12 +132,6 @@ FinalGrade_data <- cbind(data_test, FinalGrade_prediction)
 
 ##How does this model peform?
 
-#Create a function to calculate the (predicted - actual: RESIDUAL)
-#take the absolute value
-Emily_residuals<- function(pred, obs){
-    diff <- pred-obs
-    return(abs(diff))
-}
 
 #Call my newly created function
 #first arg = predicted
@@ -100,12 +139,18 @@ Emily_residuals<- function(pred, obs){
 
 Residuals_FinalGrade <- Emily_residuals(FinalGrade_data$FinalGrade_prediction , FinalGrade_data$final_grade)
 
+Residuals_FinalGrade %>% 
+    as_data_frame() %>% 
+    ggplot(aes(x = value)) +
+    geom_density()
+
 #plot the errors in a density plot
 FinalGrade_resid_plot <- plot(density(Residuals_FinalGrade), 
                           main = "Absolute Value of Out-of-Sample\n Residuals for Final Grade Model",
                           xlab = "Residuals",
                           ylab = "Density")
 
+FinalGrade_resid_plot
 ###Old stuff we are not doing anymore
 
 #-----------------------------
