@@ -151,14 +151,6 @@ FinalGrade_resid_plot <- plot(density(Residuals_FinalGrade),
                           ylab = "Density")
 
 FinalGrade_resid_plot
-###Old stuff we are not doing anymore
 
-#-----------------------------
-# 3 TEMP WE WILL CHANGE THIS.  Placeholder until we figure out multiple imputation
-#-----------------------------
-
-#data <- na.omit(online_science_motivation)
-#this takes us down from 662 observations of 17 variables to 91 observations of 17 variables :(
-
-
-#str(online_science_motivation)
+#VARIABLE IMPORTANCE PLOT
+RF_FinalGrade_plot <- varImpPlot(RF_FinalGrade)
