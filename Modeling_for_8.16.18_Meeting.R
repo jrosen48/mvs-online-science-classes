@@ -49,7 +49,7 @@ aggr_plot <- aggr(online_science_motivation, col=c('navyblue','red'), numbers=TR
 #Select only data that are complete on pre-motivation and final grade
     #EMILY WILL WORK ON THIS TOMORROW 8.24.18
 data <- online_science_motivation %>% 
-        select(pre_int, pre_uv,  pre_percomp, time_spent, final_grade, subject, enrollment_reason, enrollment_status)
+        select(pre_int, pre_uv,  pre_percomp, time_spent,course_ID, final_grade, subject, enrollment_reason, semester, enrollment_status)
    
 data <- na.omit(data)
 
@@ -84,9 +84,10 @@ data_train <- data_train %>%
     mutate_if(is.character, as.factor)
 
 RF_FinalGrade <-randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent +
-                                 enrollment_reason + enrollment_status + subject,
+                                 enrollment_reason + enrollment_status + subject + course_ID + semester,
                              data = data_train,
-                             method = "regression")
+                             method = "regression", 
+                             importance = TRUE)
 
 RF_FinalGrade
 summary(RF_FinalGrade)
@@ -153,4 +154,4 @@ FinalGrade_resid_plot <- plot(density(Residuals_FinalGrade),
 FinalGrade_resid_plot
 
 #VARIABLE IMPORTANCE PLOT
-RF_FinalGrade_plot <- varImpPlot(RF_FinalGrade)
+varImpPlot(RF_FinalGrade)
