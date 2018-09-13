@@ -89,9 +89,15 @@ ltr <- levels(data_train$course_ID) # 36 levels
 levels_to_add <- ltr[!(ltr %in% lte)]
 
 levels(data_test$course_ID) <- c(levels(data_test$course_ID), levels_to_add)
+# 
+# RF_FinalGrade <-randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent +
+#                                  enrollment_reason + subject + course_ID,
+#                              data = data_train,
+#                              method = "regression", 
+#                              importance = TRUE)
 
 RF_FinalGrade <-randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent +
-                                 enrollment_reason + subject + course_ID,
+                                 enrollment_reason + course_ID,
                              data = data_train,
                              method = "regression", 
                              importance = TRUE)
@@ -112,7 +118,7 @@ p <- d %>%
     mutate(abs_diff = Emily_residuals(final_grade, pred_final_grade),
            diff = final_grade - pred_final_grade)
 
-p %>% summarize_all(funs(mean))
+p %>% summarize_all(funs(mean)) %>% select (pred_final_grade, abs_diff, diff)
 
 p %>% 
     select(final_grade, pred_final_grade) %>% 
@@ -161,3 +167,5 @@ FinalGrade_resid_plot
 
 #VARIABLE IMPORTANCE PLOT
 varImpPlot(RF_FinalGrade)
+
+varImp(RF_FinalGrade) #this gives us the actual values for the variable importance MSE
