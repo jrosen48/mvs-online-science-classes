@@ -22,7 +22,7 @@ Emily_residuals<- function(pred, obs){
 # 2. Random descriptive analyses
 #-----------------------------
 
-f <- here::here("online-science-motivation.csv")
+f <- here::here("online-science-motivation-w-disc.csv")
 online_science_motivation <- read_csv(f)
 
 online_science_motivation %>%
