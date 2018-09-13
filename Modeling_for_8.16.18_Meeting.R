@@ -28,6 +28,9 @@ online_science_motivation <- read_csv(f)
 online_science_motivation %>%
     count(enrollment_reason)
 
+f1 <- here::here("all-disc-data.csv") 
+discussion_data <- read_csv(f1)
+
 #-----------------------------
 # 3. Pre-process and impute missing data - PROBLEMS here, deleting missing data listwise for now to get RFs done, see 3Temp
 #-----------------------------

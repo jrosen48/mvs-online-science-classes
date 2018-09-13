@@ -15,6 +15,9 @@ names(out_df) <- c("course", "section", "user_pk", "thread_title", "thread_desc"
 
 # Loading processed data
 
-all_data <- readr::read_csv("~/Dropbox/research/utility_value_intervention_online_science/all_discussion_data.csv")
+library(readr)
+ad <- read_csv("all_disc_12-20.csv")
+
+write_csv(out_df, "all-disc.data.csv")
 
 str(all_data)
