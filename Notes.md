@@ -21,6 +21,14 @@ Mean squared error % increase refers to the amount that the MSE increases when t
 -   For each of those above, present mean residual values.
 
 #Next steps 9.13.18
--   Josh will add a dataframe with 6-7 liwc summary stats 
+-   Josh will add a dataframe with 6-7 liwc summary stats - DONE
+- text variables to add:
+  - cogproc
+  - social
+  - posemo
+  - negemo
+  - perscon
+  - n (this is the number of posts)
+- note that we don't have this for the 100 or so students from the third semester
 -   Emily will re-run the models, generate the output - maybe convert to an R markdown
 -   File > new markdown > from template (papaja)

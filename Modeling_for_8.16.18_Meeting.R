@@ -25,9 +25,6 @@ Emily_residuals<- function(pred, obs){
 f <- here::here("online-science-motivation-w-disc.csv")
 online_science_motivation <- read_csv(f)
 
-online_science_motivation %>%
-    count(enrollment_reason)
-
 #-----------------------------
 # 3. Pre-process and impute missing data - PROBLEMS here, deleting missing data listwise for now to get RFs done, see 3Temp
 #-----------------------------
