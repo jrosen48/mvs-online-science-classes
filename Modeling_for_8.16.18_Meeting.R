@@ -25,6 +25,10 @@ Emily_residuals<- function(pred, obs){
 f <- here::here("online-science-motivation-w-disc.csv")
 online_science_motivation <- read_csv(f)
 
+# this filters the data to not include the third semester...
+online_science_motivation <- online_science_motivation %>% 
+  filter(!str_detect(online_science_motivation$course_ID, "S217"))
+
 #-----------------------------
 # 3. Pre-process and impute missing data - PROBLEMS here, deleting missing data listwise for now to get RFs done, see 3Temp
 #-----------------------------
