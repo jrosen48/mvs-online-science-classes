@@ -28,32 +28,6 @@ online_science_motivation <- read_csv(f)
 online_science_motivation %>%
     count(enrollment_reason)
 
-f1 <- here::here("all-disc-data.csv") 
-d_data <- read_csv(f1)
-d_data <- rename(d_data, course_ID = section)
-
-cleanFun <- function(htmlString) {
-  return(gsub("<.*?>", "", htmlString))
-}
-
-d_data$text <- cleanFun(d_data$text)
-
-write_csv(select(d_data, user_ID = opdata_username, course_ID, text), "osm-to-liwc.csv")
-
-d <- read_csv("osc-proc.csv")
-d <- rename(d, student_ID =`Source (A)`, course_ID = `Source (B)`)
-
-dd <- d %>% 
-  group_by(student_ID, course_ID) %>% 
-  select(-`Source (C)`) %>% 
-  summarize_all(funs(mean))
-
-online_science_motivation <- left_join(online_science_motivation, d, by = c("course_ID")
-
-write_csv(online_science_motivation, "online-science-motivation-disc.csv")
-
-# d <- textfeatures::textfeatures(online_science_motivation)
-
 #-----------------------------
 # 3. Pre-process and impute missing data - PROBLEMS here, deleting missing data listwise for now to get RFs done, see 3Temp
 #-----------------------------
