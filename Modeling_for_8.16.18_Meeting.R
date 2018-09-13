@@ -77,20 +77,26 @@ colnames(data_test)
 #Outcome of interest = final grade
 #Inputs = ONLY post motivation - considering our August 16 decision that the "pre" data is icky
 
-data_test <- data_test %>% 
+data_test <- data_test %>%
     mutate_if(is.character, as.factor)
 
-data_train <- data_train %>% 
+data_train <- data_train %>%
     mutate_if(is.character, as.factor)
+
+lte <- levels(data_test$course_ID) # 25 levels
+ltr <- levels(data_train$course_ID) # 36 levels
+
+levels_to_add <- ltr[!(ltr %in% lte)]
+
+levels(data_test$course_ID) <- c(levels(data_test$course_ID), levels_to_add)
 
 RF_FinalGrade <-randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent +
-                                 enrollment_reason + enrollment_status + subject + course_ID + semester,
+                                 enrollment_reason + subject + course_ID,
                              data = data_train,
                              method = "regression", 
                              importance = TRUE)
 
 RF_FinalGrade
-summary(RF_FinalGrade)
 
 #Generate Predicted classes using the model object
 FinalGrade_prediction <- predict(object = RF_FinalGrade,   # model object 
