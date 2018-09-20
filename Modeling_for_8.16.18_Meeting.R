@@ -60,11 +60,14 @@ skim(data)
 #-----------------------------
 # 4.  Data splitting: Creating training and testing dataset
 #-----------------------------
+data$course_ID <- as.factor(data$course_ID)
+
 trainIndex <- createDataPartition(data$final_grade,
                                   p = .8, list = FALSE)
 
 data_train <- data[ trainIndex,] #rows defined by train index
 data_test <- data[-trainIndex,] #give me everyting in data EXCEPT the ones indicated by train index
+
 dim(data_train)
 dim(data_test)
 
@@ -72,12 +75,14 @@ dim(data_test)
 
 skim(data_train)
 skim(data_test)
+
 #-----------------------------
 # 5.  Random forest Predicting Final Grade
 #-----------------------------
 colnames(data_test)
 #Outcome of interest = final grade
-#Inputs = ONLY post motivation - considering our August 16 decision that the "pre" data is icky
+#Inputs = ONLY pre motivation - considering our August 16 decision that the "post" data is icky
+# JOSH note - I changed this, it's the post data that's no good
 
 data_test <- data_test %>%
     mutate_if(is.character, as.factor)
@@ -85,26 +90,43 @@ data_test <- data_test %>%
 data_train <- data_train %>%
     mutate_if(is.character, as.factor)
 
-lte <- levels(data_test$course_ID) # 25 levels
-ltr <- levels(data_train$course_ID) # 36 levels
-
-levels_to_add <- ltr[!(ltr %in% lte)]
-
-levels(data_test$course_ID) <- c(levels(data_test$course_ID), levels_to_add)
+# lte <- levels(data_test$course_ID) # 25 levels
+# ltr <- levels(data_train$course_ID) # 36 levels
 # 
+# levels_to_add <- ltr[!(ltr %in% lte)]
+# 
+# levels(data_test$course_ID) <- c(levels(data_test$course_ID), levels_to_add)
+# 
+# lter <- levels(data_test$enrollment_reason) # 25 levels
+# ltrr <- levels(data_train$enrollment_reason) # 36 levels
+
 # RF_FinalGrade <-randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent +
 #                                  enrollment_reason + subject + course_ID,
 #                              data = data_train,
 #                              method = "regression", 
 #                              importance = TRUE)
 
+# reprex for forcats repo:
+
+# dat <- tibble(
+#     cat = as.factor(rep(c("a", "b", "c", "d", "e", "f"), 3)),
+#     var = runif(18)
+# )
+# 
+# dat_train <- dat[1:13, ]
+# dat_test <- dat[14:18, ]
+# 
+# m <- randomForest(var ~ cat, 
+#                   dat_train, 
+#                   method = "regression")
+# 
+# pred <- predict(m, newdata = dat_test)
+
 RF_FinalGrade <-randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent +
                                  enrollment_reason + course_ID,
                              data = data_train,
                              method = "regression", 
                              importance = TRUE)
-
-RF_FinalGrade
 
 #Generate Predicted classes using the model object
 FinalGrade_prediction <- predict(object = RF_FinalGrade,   # model object 
