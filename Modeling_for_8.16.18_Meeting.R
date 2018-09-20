@@ -10,6 +10,7 @@ library(mice) #Multivariate Imputation by Chained Equations
 library(VIM) #Visualization and Imputation of Missing Values
 library(randomForest)
 library(here)
+library(stringr)
 
 #Create a function to calculate the (predicted - actual: RESIDUAL)
 #take the absolute value
