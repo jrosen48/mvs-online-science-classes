@@ -51,10 +51,20 @@ ACTION ITEMS:
         -   Do we need "Background and related work"
         
         
-    4.  Division of writing labor for next 10 days (one proposition)
-        -   Emily can do intro
-        -   
-        
+    4.  Division of writing labor for next 9 days (one proposition)
+        - Results??
+        - Discussion??
+        -   Emily
+            -   Intro
+            -   Background/related work
+            -   Data Analysis
+        -   Josh
+            -   Setting / Data sources
+            -   Participants
+            -   Procedure - the part about the data processing
+    5.  Timeline for next 9 days
+        -   Rough draft by Thur 27th
+        -   Edit by 
     
     
 # Helpful Links:
