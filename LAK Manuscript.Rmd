@@ -67,25 +67,64 @@ set.seed(42)
 knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
 ```
 
+# CCS Concepts
+Applied computing ~ Education ~ Learning management systems
+Applied computing ~ Education ~ E-learning
+Applied computing ~ Education ~ Computer-managed instruction
+
+# Keywords  
+
+# 1. INTRODUCTION
+In recent years, educational institutions have begun to collect student data (REF). One area of interest is the delivery of fully online instruction, which is becoming more prevalent (REF). Specifically, online education is available for K-12 students who cannot or prefer not to attend a brick-and-mortar school (REF). We seek to examine in the current study the educational experiences of students in online science courses at a virtual middle school. 
+
+One meaningful perspective from which to consider students' engagement with online courses is related to their motivation to achieve. More specifically, it is important to consider how and why students are engaging with the course. To consider the psychological mechanisms behind achievement is valuable because doing so may help to identify meaningful points of intervention for 
+
+Expectancy-value theory (EVT) is a key motivational framework that explains the reasons that students are motivated to achieve (Eccles et al., 1983). EVT posits that students are motivated to achieve when (1) they perceive themselves to be capable of success (e.g., "expectancy") and (2) they perceive present or future value in the task at hand (e.g., "value"). Two types of value are utility value, which refers to the degree to which students perceive that a given task will be useful to them for some future goal, and interest value, which refers to the level of interest students have in a given task. In this study, we will consider utility value, interest value, and expectancy for success as predictors of student achievement.
+
+We are fortunate to have a robust dataset which includes self-reported motivation as well as behavioral trace data which was collected from the learning management system. (MAYBE SAY MORE ABOUT THIS IN THE METHOD INSTEAD OF INTRO...? - EAB 9.21.2018)
+
+We investigated three research questions:
+(1) Is motivation - operationalized as interest value, utility value and perceived competence for science - relatively more predictive of course grades as compared to other online indicators of engagement?
+(2) Which types of motivation are most predictive?
+(3) Which types of trace measures are most predictive?
+
+# 2. BACKGROUND AND RELATED WORK
+
+! We might not need this section, I got the idea from another paper.
 
 
-# Methods
-We report how we determined our sample size, all data exclusions (if any), all manipulations, and all measures in the study. <!-- 21-word solution (Simmons, Nelson & Simonsohn, 2012; retrieved from http://ssrn.com/abstract=2160588) -->
+# 2. EXPERIMENTAL AND COMPUTATIONAL DETAILS
 
-## Participants
+## 2.1 Participants
+Participants were ###### students enrolled in online middle school science courses in ____years____.
 
-## Material
+## 2.2 Setting / Data Sources
 
-## Procedure
 
-## Data analysis
+## 2.3 Procedure
+
+Should we talk here about
+
+## 2.4 Data analysis
 We used `r cite_r("r-references.bib")` for all our analyses.
 
+For our analyses, we used 
 
-# Results
+# 3. RESULTS 
 
-# Discussion
+# 4. DISCUSSION
 
+*Below are the specific questions from the LAK website that we should reflect on... maybe not just in the discussion, but also in other parts of the work as well.
+
+-   What is the most surprising part of your results? Was this surprise shared by the people involved?
+
+-   Can you justify why you used one specific methodology instead of an alternative? 
+
+-   What is the the value and potential impact of your initiative at scale? 
+
+-   What changes in teaching and learning activities you envision that could be realistically derived from your work? 
+
+-   What is the target audience for your study? 
 
 \newpage
 
