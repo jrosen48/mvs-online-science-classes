@@ -39,6 +39,12 @@ ACTION ITEMS:
     Josh:
     Emily:
 
+    a.  Analyses Updates
+        -   perscon was not in the data, I did not include it
+        -   Updated RF and put all discussion predictors in it
+        -   Does line 257 of LAK Manuscript .Rmd work for you?
+        -   Unpacking findings: making sure we have same interpretation.
+        
     1.  CCS Concepts: 
         -   Applied computing ~ Education ~ Learning management systems
         -   Applied computing ~ Education ~ E-learning
@@ -63,8 +69,10 @@ ACTION ITEMS:
             -   Participants
             -   Procedure - the part about the data processing
     5.  Timeline for next 9 days
-        -   Rough draft by Thur 27th
-        -   Edit by 
+        -   Rough draft by Wed 26th
+        -   First round of edits by Fri 28th
+        -   {Emily out of town 29-30}
+        -   Emily final edits and submit Oct. 1
     
     
 # Helpful Links:
