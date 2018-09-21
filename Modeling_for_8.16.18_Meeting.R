@@ -11,6 +11,7 @@ library(VIM) #Visualization and Imputation of Missing Values
 library(randomForest)
 library(here)
 library(stringr)
+library(papaja)
 
 #Create a function to calculate the (predicted - actual: RESIDUAL)
 #take the absolute value
@@ -162,7 +163,7 @@ p %>%
 #this above returns a matrix
 #NOW - correspond this matrix to the info we have
 
-plot(density(FinalGrade_prediction)) #check out the predictions that are generated to see what they look like
+#plot(density(FinalGrade_prediction)) #check out the predictions that are generated to see what they look like
 
 #Take test data frames and cbind new prediction matrix
 FinalGrade_data <- cbind(data_test, FinalGrade_prediction)
