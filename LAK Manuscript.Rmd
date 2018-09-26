@@ -1,0 +1,329 @@
+---
+title             : "The title"
+shorttitle        : "Title"
+
+author: 
+  - name          : "First Author"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "Postal address"
+    email         : "my@email.com"
+  - name          : "Ernst-August Doelle"
+    affiliation   : "1,2"
+
+affiliation:
+  - id            : "1"
+    institution   : "Wilhelm-Wundt-University"
+  - id            : "2"
+    institution   : "Konstanz Business School"
+
+authornote: |
+  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+
+  Enter author note here.
+
+abstract: |
+  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+  
+  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
+  
+  One sentence clearly stating the **general problem** being addressed by  this particular study.
+  
+  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
+  
+  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
+  
+  One or two sentences to put the results into a more **general context**.
+  
+  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
+  
+  <!-- https://tinyurl.com/ybremelq -->
+  
+keywords          : "keywords"
+wordcount         : "X"
+
+bibliography      : ["r-references.bib"]
+
+floatsintext      : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : yes
+mask              : no
+draft             : no
+
+documentclass     : "apa6"
+classoption       : "man"
+output            : papaja::apa6_pdf
+---
+
+```{r setup, include = FALSE}
+library("papaja")
+```
+
+```{r analysis-preferences}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed)
+```
+
+# CCS Concepts
+Applied computing ~ Education ~ Learning management systems
+Applied computing ~ Education ~ E-learning
+Applied computing ~ Education ~ Computer-managed instruction
+
+# Keywords  
+
+# 1. INTRODUCTION
+In recent years, educational institutions have begun to collect student data (REF). One area of interest is the delivery of fully online instruction, which is becoming more prevalent (REF). Specifically, online education is available for K-12 students who cannot or prefer not to attend a brick-and-mortar school (REF). We seek to examine in the current study the educational experiences of students in online science courses at a virtual middle school. 
+
+One meaningful perspective from which to consider students' engagement with online courses is related to their motivation to achieve. More specifically, it is important to consider how and why students are engaging with the course. To consider the psychological mechanisms behind achievement is valuable because doing so may help to identify meaningful points of intervention for educators.
+
+Expectancy-value theory (EVT) is a key motivational framework that explains the reasons that students are motivated to achieve (Eccles et al., 1983). EVT posits that students are motivated to achieve when (1) they perceive themselves to be capable of success (e.g., "expectancy") and (2) they perceive present or future value in the task at hand (e.g., "value"). Two types of value are utility value, which refers to the degree to which students perceive that a given task will be useful to them for some future goal, and interest value, which refers to the level of interest students have in a given task. In this study, we will consider utility value, interest value, and expectancy for success as predictors of student achievement.
+
+We are fortunate to have a robust dataset which includes self-reported motivation as well as behavioral trace data which was collected from the learning management system. (MAYBE SAY MORE ABOUT THIS IN THE METHOD INSTEAD OF INTRO...? - EAB 9.21.2018)
+
+We investigated three research questions:
+(1) Is motivation - operationalized as interest value, utility value and perceived competence for science - relatively more predictive of course grades as compared to other online indicators of engagement?
+(2) Which types of motivation (e.g., interest value, utility value, and perceived competence) is most predictive of achievement?
+(3) Which types of trace measures (e.g.,  
+  - cogproc
+  - social
+  - posemo
+  - negemo
+  - perscon
+  - n (this is the number of posts)
+  are most predictive?
+
+## Notes on Intro from the call
+We welcome theoretical, methodological, empirical and technical contributions to all fields related to learning analytics. Related to our special theme the following topics are of particular interest:
+
+-   Universal design for learning promotes an inclusive approach to the curriculum – how can learning analytics support curriculum design and revision from this perspective?
+-   How can analytics be applied in ways that support inclusion and success?
+-   How can the training of data scientists be made more inclusive?
+-   What does educational success look like, and how can it be supported?
+-   How can systematic biases (e.g. related to diversity) in our analytics algorithms be identified, reflected, and possibly avoided?
+
+# A. BACKGROUND AND RELATED WORK
+
+! We might not need this section, I got the idea from a full paper. I think it overlaps with intro
+
+# 2. METHOD
+
+## 2.1 Participants
+Participants were ###### students enrolled in online middle school science courses in ____years____.
+
+## 2.2 Setting / Data Sources
+
+
+## 2.3 Procedure
+
+## 2.4 Data analysis
+We used `r cite_r("r-references.bib")` for all our analyses.
+
+For our analyses, we used 
+
+# 3. RESULTS 
+```{r, echo = FALSE}
+#-----------------------------
+# 1. Loading packages
+#-----------------------------
+library(tidyverse)
+library(caret) #Classification and Regression Training
+library(skimr) #Compact and Flexible Summaries of Data
+library(RANN) #Fast Nearest Neighbor Search
+library(mice) #Multivariate Imputation by Chained Equations
+library(VIM) #Visualization and Imputation of Missing Values
+library(randomForest)
+library(here)
+library(stringr)
+
+
+#Create a function to calculate the (predicted - actual: RESIDUAL)
+#take the absolute value
+Emily_residuals<- function(pred, obs){
+    diff <- pred-obs
+    return(abs(diff))
+}
+
+
+#-----------------------------
+# 2. Load data
+#-----------------------------
+
+f <- here::here("online-science-motivation-w-disc.csv")
+online_science_motivation <- read_csv(f)
+
+skim(online_science_motivation)
+#-----------------------------
+# 2. Wrangle data
+#-----------------------------
+
+# this filters the data to not include the third semester...
+online_science_motivation <- online_science_motivation %>% 
+  filter(!str_detect(online_science_motivation$course_ID, "S217"))
+
+# select the relevant variables
+data <- online_science_motivation %>% 
+        select(pre_int, pre_uv,  pre_percomp, time_spent,course_ID, final_grade, subject, enrollment_reason, semester, enrollment_status, cogproc, social, posemo, negemo, n)
+        #Result: 550 obs of 15 variables
+  
+#delete cases with missing variables 
+data <- na.omit(data)
+        #Result: 499 obs of 15 variables
+
+#look at dataset
+skim(data)
+
+#-----------------------------
+# 3.  Data splitting: Creating training and testing dataset
+#-----------------------------
+data$course_ID <- as.factor(data$course_ID)
+
+trainIndex <- createDataPartition(data$final_grade,
+                                  p = .8, list = FALSE)
+
+data_train <- data[ trainIndex,] #rows defined by train index
+data_test <- data[-trainIndex,] #give me everyting in data EXCEPT the ones indicated by train index
+
+dim(data_train)
+dim(data_test)
+
+#Check whether distributions of variables look good across datasets
+skim(data_train)
+skim(data_test)
+
+# Reformat data in training and testing datasets to prepare for analyses
+data_test <- data_test %>%
+    mutate_if(is.character, as.factor)
+
+data_train <- data_train %>%
+    mutate_if(is.character, as.factor)
+
+#-----------------------------
+# 4.  Random forest Predicting Final Grade
+#-----------------------------
+#check out the variable names so that we can input the right values into the RF 
+colnames(data_test)
+
+# NEW 9.21.2018: Incorporating discussion Predictors
+
+#####
+#Research Question 1: Is mot better predictor than trace
+#####
+RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + course_ID + cogproc + social + posemo + negemo + n,
+                             data = data_train,
+                             method = "regression", 
+                             importance = TRUE)
+
+#####
+#Research Question 2: Most predictive motivation measure
+#####
+
+#I don't know if we should do a separate RF for these RQs
+
+#####
+#Research Question 3: Most predictive trace measure
+#####
+
+
+#I don't know if we should do a separate RF for these RQs
+
+#########################################################################
+
+#Below is the most recently discussed version of our RF. Above is the new RF, 9.21.18
+
+# RF_FinalGrade <-randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + enrollment_reason + course_ID,
+                             # data = data_train,
+                             # method = "regression", 
+                             # importance = TRUE)
+#########################################################################
+
+#Generate Predicted classes using the model object
+FinalGrade_prediction <- predict(object = RF_FinalGrade,   # model object 
+                             newdata = data_test)  # train dataset
+
+FinalGrade_prediction <- as.data.frame(FinalGrade_prediction)
+
+d <- data.frame(data_test, FinalGrade_prediction)
+
+p <- d %>% 
+    as_tibble() %>% 
+    rename(pred_final_grade = FinalGrade_prediction) %>% 
+    mutate(abs_diff = Emily_residuals(final_grade, pred_final_grade),
+           diff = final_grade - pred_final_grade)
+
+p %>% select (pred_final_grade, abs_diff, diff) %>% summarize_all(funs(mean)) 
+
+p %>% 
+    select(final_grade, pred_final_grade) %>% 
+    gather(key, val, final_grade:pred_final_grade) %>% 
+    ggplot(aes(x = val, fill = key, color = key)) +
+    geom_density(alpha = .4)
+
+p %>% 
+    select(final_grade, pred_final_grade, time_spent) %>% 
+    ggplot(aes(x = final_grade, y = pred_final_grade, color = time_spent)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = F) +
+    ylim(0, 100) +
+    xlim(0, 100) +
+    scale_color_viridis_c()
+
+#-----------------------------
+# 5. Model Evaluation
+#-----------------------------
+
+#Take test data frames and cbind new prediction matrix
+FinalGrade_data <- cbind(data_test, FinalGrade_prediction)
+
+#Call my newly created function, first arg = predicted, second arg = observed
+
+Residuals_FinalGrade <- Emily_residuals(FinalGrade_data$FinalGrade_prediction , FinalGrade_data$final_grade)
+
+Residuals_FinalGrade %>% 
+    as_data_frame() %>% 
+    ggplot(aes(x = value)) +
+    geom_density()
+
+#plot the errors in a density plot
+FinalGrade_resid_plot <- plot(density(Residuals_FinalGrade), 
+                          main = "Absolute Value of Out-of-Sample\n Residuals for Final Grade Model",
+                          xlab = "Residuals",
+                          ylab = "Density")
+
+FinalGrade_resid_plot
+
+#VARIABLE IMPORTANCE PLOT
+varImpPlot(RF_FinalGrade)
+
+varImp(RF_FinalGrade) #this gives us the actual values for the variable importance MSE
+
+```
+# 4. DISCUSSION
+
+*Below are the specific questions from the LAK website that we should reflect on... maybe not just in the discussion, but also in other parts of the work as well.
+
+-   What is the most surprising part of your results? Was this surprise shared by the people involved?
+
+-   Can you justify why you used one specific methodology instead of an alternative? 
+
+-   What is the the value and potential impact of your initiative at scale? 
+
+-   What changes in teaching and learning activities you envision that could be realistically derived from your work? 
+
+-   What is the target audience for your study? 
+
+\newpage
+
+# References
+```{r create_r-references}
+r_refs(file = "r-references.bib")
+```
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id = "refs"></div>
+\endgroup
