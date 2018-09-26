@@ -83,15 +83,18 @@ At the beginning of the semester, students were asked to complete the pre-course
 The random forest algorithm does not accept cases with missing data. Thus, we deleted cases listwise if data were missing. This decision eliminated 51 cases from our original dataset, to bring us to our final sample size of 499 unique students.
 
 *Main Modeling*
-For our analyses, we used Random Forest modeling (Breiman, 2001). Random forest is an extension of decision tree modeling, whereby  
+For our analyses, we used Random Forest modeling (Breiman, 2001). Random forest is an extension of decision tree modeling, whereby  ___.  Random forest is random in two main ways: first, each tree is only allowed to "see" and split on a limited number of predictors instead of all the predictors in the parameter space; second, a random subsample of the data is used to grow each individual tree, such that no individual case is weighted too heavily in the final prediction. Whereas some machine learning approaches (e.g., boosted trees) would utilize an iterative model-building approach, random forest estimates all the decision trees at once. In this way, each tree is independent of every other tree. Thus, the random forest algorithm provides a robust regression approach that adds value to other modeling approaches.
 
-Random forest is well suited to the research questions that we had here because _________. In this study, we used the package randomForest in R (Liaw, 2018). 500 trees were grown as part of our random forest. 
+Random forest is well suited to the research questions that we had here because it allows for nonlinear modeling. We hypothesized complex relationships between students' motivation, their engagement with the online courses, and their achievement. For this reason, a traditional regressive or structural equation model would have been insufficient to model the parameter space we were interesting in modeling. 
+
+In this study, we used the package randomForest in R (Liaw, 2018). 500 trees were grown as part of our random forest. 
 We used the default value for "mtry," such that at each node, _____ predictors were candidates for splitting.
 
-We partitioned the data before conducting the main analysis so that neither the training and testing dataset would not be disproportionately representative of high-achieving or low-achieving students. The training dataset consisted of 80% of the original data (n = ___ cases), whereas the testing dataset consisted of 20% of the original data (n = ____ cases).
+We partitioned the data before conducting the main analysis so that neither the training and testing dataset would not be disproportionately representative of high-achieving or low-achieving students. The training dataset consisted of 80% of the original data (n = 400 cases), whereas the testing dataset consisted of 20% of the original data (n = 99 cases).
 
 *Model Interpretation*
 To interpret our findings, we examined three main things: (1) predictive accuracy of the random forest model, (2) variable importance, and (3) variance explained
+
 We determined whether we had a strong model by examining the 
 
 # 3. RESULTS 
