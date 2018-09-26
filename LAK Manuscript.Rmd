@@ -211,7 +211,7 @@ colnames(data_test)
 #####
 #Research Question 1: Is mot better predictor than trace
 #####
-RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + enrollment_reason + course_ID + cogproc + social + posemo + negemo + n,
+RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + course_ID + cogproc + social + posemo + negemo + n,
                              data = data_train,
                              method = "regression", 
                              importance = TRUE)
@@ -253,8 +253,7 @@ p <- d %>%
     mutate(abs_diff = Emily_residuals(final_grade, pred_final_grade),
            diff = final_grade - pred_final_grade)
 
-#JOSH I am having trouble getting this line to run - does it work for you?
-p %>% summarize_all(funs(mean)) %>% select (pred_final_grade, abs_diff, diff)
+p %>% select (pred_final_grade, abs_diff, diff) %>% summarize_all(funs(mean)) 
 
 p %>% 
     select(final_grade, pred_final_grade) %>% 
