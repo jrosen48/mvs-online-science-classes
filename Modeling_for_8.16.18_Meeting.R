@@ -129,13 +129,20 @@ RF_FinalGrade <-randomForest(formula = final_grade ~ pre_int + pre_uv + pre_perc
                              method = "regression", 
                              importance = TRUE)
 
+
 #Generate Predicted classes using the model object
 FinalGrade_prediction <- predict(object = RF_FinalGrade,   # model object 
                              newdata = data_test)  # train dataset
 
 FinalGrade_prediction <- as.data.frame(FinalGrade_prediction)
 
+lm_pred <- predict(lm_m, data_test)
+
+summary(lm_m)
+
 d <- data.frame(data_test, FinalGrade_prediction)
+
+dd <- data.frame(data_test, lm_pred)
 
 p <- d %>% 
     as_tibble() %>% 
@@ -144,6 +151,14 @@ p <- d %>%
            diff = final_grade - pred_final_grade)
 
 p %>% summarize_all(funs(mean)) %>% select (pred_final_grade, abs_diff, diff)
+
+p2 <- dd %>% 
+    as_tibble() %>% 
+    rename(pred_final_grade = lm_pred) %>% 
+    mutate(abs_diff = Emily_residuals(final_grade, pred_final_grade),
+           diff = final_grade - pred_final_grade)
+
+p2 %>% summarize_all(funs(mean)) %>% select(abs_diff)
 
 p %>% 
     select(final_grade, pred_final_grade) %>% 
