@@ -1,7 +1,6 @@
 ---
 title             : "The title"
 shorttitle        : "Title"
-
 author: 
   - name          : "First Author"
     affiliation   : "1"
@@ -10,40 +9,17 @@ author:
     email         : "my@email.com"
   - name          : "Ernst-August Doelle"
     affiliation   : "1,2"
-
 affiliation:
   - id            : "1"
     institution   : "Wilhelm-Wundt-University"
   - id            : "2"
     institution   : "Konstanz Business School"
-
 authornote: |
-Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
-
-Enter author note here.
-
 abstract: |
-One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
-
-Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
-
-One sentence clearly stating the **general problem** being addressed by  this particular study.
-
-One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
-
-Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
-
-One or two sentences to put the results into a more **general context**.
-
-Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
-
 <!-- https://tinyurl.com/ybremelq -->
-
 keywords          : "keywords"
 wordcount         : "X"
-
 bibliography      : ["r-references.bib"]
-
 floatsintext      : no
 figurelist        : no
 tablelist         : no
@@ -51,10 +27,11 @@ footnotelist      : no
 linenumbers       : yes
 mask              : no
 draft             : no
-
 documentclass     : "apa6"
 classoption       : "man"
 output            : papaja::apa6_pdf
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include = FALSE}
@@ -94,7 +71,7 @@ Participants were 499 students enrolled in online middle school science courses 
 
 ## 2.2 Setting / Data Sources
 
-The setting of this study was a public, provider of individual online courses in a Midwestern state. In particular, the context was two semesters (Fall and Spring) of offerings of five online science courses (Anatomy & Physiology, Forensic Science, Oceanography, Physics, and Biology), with a total of 36 classes. Students completed a pre-course survey about their self-reported motivation in science — in particular, their perceived competence, utility value, and interest. We also kept track of the time students spent on the course (obtained from the Learning Management System) and their final course grades as well as their involvement in discussion forums. For the discussion board data, we used the Linguistic Inquiry and Word Count (LIWC; Pennebaker, Boyd, Jordan, & Blackburn, 2015) to calculate the number of posts per student and variable for the mean levels of students' cognitive processing, positive affect, and social-related discourse evidnenced by their posts.
+The setting of this study was a public, provider of individual online courses in a Midwestern state. In particular, the context was two semesters (Fall and Spring) of offerings of five online science courses (Anatomy & Physiology, Forensic Science, Oceanography, Physics, and Biology), with a total of 36 classes. Students completed a pre-course survey about their self-reported motivation in science — in particular, their perceived competence, utility value, and interest. We also kept track of the time students spent on the course (obtained from the Learning Management System) and their final course grades as well as their involvement in discussion forums. For the discussion board data, we used the Linguistic Inquiry and Word Count (LIWC; Pennebaker, Boyd, Jordan, & Blackburn, 2015) to calculate the number of posts per student and variable for the mean levels of students' cognitive processing, positive affect, and social-related discourse evidenced by their posts.
 
 ## 2.3 Procedure
 
@@ -103,20 +80,28 @@ At the beginning of the semester, students were asked to complete the pre-course
 ## 2.4 Data analysis
 
 *Preliminary Data Wrangling*
-The random forest algorithm does not accept cases with missing data. Thus, we deleted cases listwise if data were missing. This decision eliminated _____
+The random forest algorithm does not accept cases with missing data. Thus, we deleted cases listwise if data were missing. This decision eliminated 51 cases from our original dataset, to bring us to our final sample size of 499 unique students.
 
 *Main Modeling*
-For our analyses, we used Random Forest modeling (Breiman, 2001). Random forest is well suited to the research questions that we had here because _________  We used the package randomForest in R (Liaw, 2018).
+For our analyses, we used Random Forest modeling (Breiman, 2001). Random forest is an extension of decision tree modeling, whereby  
 
-We partitioned the data before conducting the main analysis so that the training and testing dataset
-*
+Random forest is well suited to the research questions that we had here because _________. In this study, we used the package randomForest in R (Liaw, 2018). 500 trees were grown as part of our random forest. 
+We used the default value for "mtry," such that at each node, _____ predictors were candidates for splitting.
+
+We partitioned the data before conducting the main analysis so that neither the training and testing dataset would not be disproportionately representative of high-achieving or low-achieving students. The training dataset consisted of 80% of the original data (n = ___ cases), whereas the testing dataset consisted of 20% of the original data (n = ____ cases).
+
+*Model Interpretation*
+To interpret our findings, we examined three main things: (1) predictive accuracy of the random forest model, (2) variable importance, and (3) variance explained
+We determined whether we had a strong model by examining the 
 
 # 3. RESULTS 
+*Research Question 1*
+    -With respect to research question 1, 
 
-    -With respect to research question 1...
-    
-    -With respect to research question 2...
-    
+*Research Question 2*
+    -With respect to research question 2, the most predictive motivation measure was _____
+
+*Research Question 3*
     -With respect to research question 3...
 Surprisingly, we found that the trace measures were most predictive of achievement
 
@@ -141,7 +126,6 @@ Emily_residuals<- function(pred, obs){
     diff <- pred-obs
     return(abs(diff))
 }
-
 
 #-----------------------------
 # 2. Load data
