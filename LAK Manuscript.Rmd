@@ -264,29 +264,29 @@ lm_pred <- predict(lm_m, data_test)
 dd <- data.frame(data_test, lm_pred)
 ```
 # 3. RESULTS 
-The predictive accuracy of our random forest model was assessed by examining the difference between the __________
-The variance explained by our random forest model was 57.54%. Below, we will discuss in detail the specific findings for each of our research questions, which concern the variable importance plots. Variable importance plots are interpreted based on the incremental percent change in mean-squared-error (MSE) if a given variable is scrambled in the original dataset ( ). In other words, variable importance plots help to answer the question
+The predictive accuracy of our random forest model was assessed by examining the difference between the predicted values for the testing dataset and the actual values. We found that the absolute value of the average difference between the predicted and actual value for final grades was 11.8%. This indicates
+
+The variance explained by our random forest model was 57.21%. Below, we will discuss in detail the specific findings for each of our research questions, which concern the variable importance plots. Variable importance plots are interpreted based on the incremental percent change in mean-squared-error (MSE) if a given variable is scrambled in the original dataset (REF). In other words, variable importance plots help to answer the question: if a variable is scrambled so as not to relate to the outcome in any systematic way, how much does this randomization affect the mean squared error? If a variable's scrambling results in a large change in MSE, it is thought to be more important.
 
 *Research Question 1*
-With respect to research question 1, the variable importance plot for final grade indicated that the change in mean squared error
+Research question 1 asked whether motivation was a better predictor of achievement than behavioral engagement indicators. With respect to research question 1, the variable importance plot for final grade indicated that the change in mean squared error was more strongly affected by trace variables than motivation measures. The most predictive variable was the number of discussion posts, followed by the amount of time spent in the course. The course identifier, evidence for negative affect in the discussion posts, and level of cognitive processing associated with the discussion posts were the predictors that were next in terms of importance. All of these predictors were more important than all of the motivation variables.
 
 *Research Question 2*
-    -With respect to research question 2, the most predictive motivation measure was _____
+Research question 2 asked which of the motivation variables was most predictive of course achievement. Among motivation variables, utility value was most important, followed by perceived competence. Interest value was the least predictive of the motivation variables; indeed, interest value was the least predictive of all variables in the random forest model.
 
 *Research Question 3*
-    -With respect to research question 3...
-Surprisingly, we found that the trace measures were most predictive of achievement
+Research question 3 asked which of the trace variables was most predictive of course achievement. The most predictive variable in terms of achievement was the number of posts on the discussion board. This was the most predictive of all the variables in the model.
 
 # 4. DISCUSSION
+Overall, our random forest model explained a large amount of the variance in achievement in this study (e.g., 57.21%). However, the predictive accuracy of the model was not tuned as perfectly as it could have been: the absolute value of the average difference between the predicted final grade and actual final grade was 11.8%. This discrepancy suggests that whereas our model did a good job at explaining variance in the outcome of achievement, it did not perform as well in its prediction of "unseen" test data as would be ideal. Future research should thus explore whether the predictive accuracy of the model could be further developed. Even so, our predictive accuracy is not so low as to be unhelpful. Rather, this study offers interesting insights as to the relative importance of motivation constructs and trace measures of enagement in terms of explanatory power in explaining middle school students' online science course grades.
 
-In this study, we found that trace measures of engagement with a learning management system were more predictive of student achievement. More specifically, ______re-describe findings here_____.
+Surprisingly, we found that trace measures of engagement with a learning management system were more predictive of student achievement than motivation variables.
 
 *Limitations*
-This study was limited in some important ways. First, we chose to  operationalize achievement as final course grade. Future work could examine other meaningful outcomes. Second, we deleted 51 cases listwise from our data. This listwise deletion of cases is potentially problematic because students with some missing data could differ in important ways from students with no missing data. Last, we did not account for the ___ discussion board caveat ____.
+This study was limited in some important ways. First, we chose to  operationalize achievement as final course grade. Future work could examine other meaningful outcomes. Second, we deleted 51 cases listwise from our data. This listwise deletion of cases is potentially problematic because students with some missing data could differ in important ways from students with no missing data. Last, we did not account for the number of discussion posts that were required in a given course and it is important that future research endeavor to explore whether this plays a role in predicting the outcome.
     
 *Implications*
-    -   Trace data is valuable to collect and it could be valuable for educators to consider it more thoroughly
-    -   Motivation implications - is it valuable for students to post even if they are not intrinsically motivated to do so - perhaps posting itself is related to final grades (but how many posts were requiredd?)
+As more and more courses move online, data will continue to accumulate at rapid rates. It is important that educators and administrators consider the implications of computer-mediated instruction. This study suggests that the measurement of students' engagement with courses is helpful in understanding their achievement in these courses. Trace data is valuable to collect and it could be valuable for educators to consider it more thoroughly. This study also offers implications in terms of the motivation constructs studied. The importance of the engagement with the course through discussion board posts in terms of predicting final grade suggests that perhaps it is valuable for students to post even if they are not intrinsically motivated to do so. Future research should explore the complex relations between student motivation and course engagement, especially insofar as to examine characteristics of the online experience that could make these relations different than the patterns of relations that would be evident in a face-to-face classroom.
 
 
 
