@@ -116,7 +116,7 @@ Participants were 499 students enrolled in online middle school science courses 
 
 ## 2.2 Setting / Data Sources
 
-The setting of this study was a public, provider of individual online courses in a Midwestern state. In particular, the context was two semesters (Fall and Spring) of offerings of five online science courses (Anatomy & Physiology, Forensic Science, Oceanography, Physics, and Biology). Students completed a pre-course survey about their self-reported motivation in science — in particular, their perceived competence, utility value, and interest. We also kept track of the time students spent on the course website and their final course grades as well as their involvement in discussion forums.
+The setting of this study was a public, provider of individual online courses in a Midwestern state. In particular, the context was two semesters (Fall and Spring) of offerings of five online science courses (Anatomy & Physiology, Forensic Science, Oceanography, Physics, and Biology), with a total of 36 classes. Students completed a pre-course survey about their self-reported motivation in science — in particular, their perceived competence, utility value, and interest. We also kept track of the time students spent on the course website and their final course grades as well as their involvement in discussion forums.
 
 ## 2.3 Procedure
 
