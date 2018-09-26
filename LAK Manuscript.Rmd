@@ -83,30 +83,13 @@ At the beginning of the semester, students were asked to complete the pre-course
 The random forest algorithm does not accept cases with missing data. Thus, we deleted cases listwise if data were missing. This decision eliminated 51 cases from our original dataset, to bring us to our final sample size of 499 unique students.
 
 *Main Modeling*
-For our analyses, we used Random Forest modeling (Breiman, 2001). Random forest is an extension of decision tree modeling, whereby  ___.  Random forest is random in two main ways: first, each tree is only allowed to "see" and split on a limited number of predictors instead of all the predictors in the parameter space; second, a random subsample of the data is used to grow each individual tree, such that no individual case is weighted too heavily in the final prediction. Whereas some machine learning approaches (e.g., boosted trees) would utilize an iterative model-building approach, random forest estimates all the decision trees at once. In this way, each tree is independent of every other tree. Thus, the random forest algorithm provides a robust regression approach that adds value to other modeling approaches.
+For our analyses, we used Random Forest modeling (Breiman, 2001). Random forest is an extension of decision tree modeling, whereby a collection of decision trees are simultaneously "grown" and are evaluated based on out-of-sample predictive accuracy (Breiman, 2001).  Random forest is random in two main ways: first, each tree is only allowed to "see" and split on a limited number of predictors instead of all the predictors in the parameter space; second, a random subsample of the data is used to grow each individual tree, such that no individual case is weighted too heavily in the final prediction. Whereas some machine learning approaches (e.g., boosted trees) would utilize an iterative model-building approach, random forest estimates all the decision trees at once. In this way, each tree is independent of every other tree. Thus, the random forest algorithm provides a robust regression approach that is distinct from other modeling approaches. The final random forest model aggregates the findings across all the separate trees in the forest in order to offer a collection of "most important" variables as well as a percent variance explained for the final model.
 
 Random forest is well suited to the research questions that we had here because it allows for nonlinear modeling. We hypothesized complex relationships between students' motivation, their engagement with the online courses, and their achievement. For this reason, a traditional regressive or structural equation model would have been insufficient to model the parameter space we were interesting in modeling. 
 
-In this study, we used the package randomForest in R (Liaw, 2018). 500 trees were grown as part of our random forest. 
-We used the default value for "mtry," such that at each node, _____ predictors were candidates for splitting.
+Our random forest model had one outcome and eleven predictors. The outcome was the final course grade that the student earned. The predictor variables included motivation variables (interest value, utility value, and science perceived competence) and trace variables (the amount of time spent in the course, the course name, the number of discussion board posts over the course of the semester, the mean level of cognitive processing evident in discussion board posts, the positive affect evident in discussion board posts, the negative affect evident in discussion board posts, and the social-related discourse evident in their discussion board posts). We used this random forest model to address all three of our research questions.
 
-We partitioned the data before conducting the main analysis so that neither the training and testing dataset would not be disproportionately representative of high-achieving or low-achieving students. The training dataset consisted of 80% of the original data (n = 400 cases), whereas the testing dataset consisted of 20% of the original data (n = 99 cases).
-
-*Model Interpretation*
-To interpret our findings, we examined three main things: (1) predictive accuracy of the random forest model, (2) variable importance, and (3) variance explained
-
-We determined whether we had a strong model by examining the 
-
-# 3. RESULTS 
-*Research Question 1*
-    -With respect to research question 1, 
-
-*Research Question 2*
-    -With respect to research question 2, the most predictive motivation measure was _____
-
-*Research Question 3*
-    -With respect to research question 3...
-Surprisingly, we found that the trace measures were most predictive of achievement
+In this study, we used the package randomForest in R (Liaw, 2018). 500 trees were grown as part of our random forest. We partitioned the data before conducting the main analysis so that neither the training and testing dataset would not be disproportionately representative of high-achieving or low-achieving students. The training dataset consisted of 80% of the original data (n = 400 cases), whereas the testing dataset consisted of 20% of the original data (n = 99 cases). We built our random forest model on the training dataset, and then evaluated the model on the testing dataset. Three variables were tried at each node. To interpret our findings, we examined three main things: (1) predictive accuracy of the random forest model, (2) variable importance, and (3) variance explained by the final random forest model.
 
 ```{r, echo = FALSE}
 #-----------------------------
@@ -194,12 +177,12 @@ colnames(data_test)
 #####
 #Research Question 1: Is mot better predictor than trace
 #####
-
+##set.seed(8675309)
 RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + course_ID + cogproc + social + posemo + negemo + n,
                                data = data_train,
                                method = "regression", 
                                importance = TRUE)
-
+RF_FinalGrade
 #####
 #Research Question 2: Most predictive motivation measure
 #####
@@ -270,6 +253,8 @@ varImpPlot(RF_FinalGrade)
 
 varImp(RF_FinalGrade) #this gives us the actual values for the variable importance MSE
 
+importance(RF_FinalGrade)
+
 ```
 
 ```{r, include = FALSE, eval = FALSE}
@@ -278,14 +263,26 @@ lm_m <- lm(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent +
 lm_pred <- predict(lm_m, data_test)
 dd <- data.frame(data_test, lm_pred)
 ```
+# 3. RESULTS 
+The predictive accuracy of our random forest model was assessed by examining the difference between the __________
+The variance explained by our random forest model was 57.54%. Below, we will discuss in detail the specific findings for each of our research questions, which concern the variable importance plots. Variable importance plots are interpreted based on the incremental percent change in mean-squared-error (MSE) if a given variable is scrambled in the original dataset ( ). In other words, variable importance plots help to answer the question
+
+*Research Question 1*
+With respect to research question 1, the variable importance plot for final grade indicated that the change in mean squared error
+
+*Research Question 2*
+    -With respect to research question 2, the most predictive motivation measure was _____
+
+*Research Question 3*
+    -With respect to research question 3...
+Surprisingly, we found that the trace measures were most predictive of achievement
 
 # 4. DISCUSSION
 
 In this study, we found that trace measures of engagement with a learning management system were more predictive of student achievement. More specifically, ______re-describe findings here_____.
 
 *Limitations*
-    -   The operationalization of achievement as final course grade - maybe we could look at other possible outcomes in the future.
-    -   Listwise deletion of cases = potentially problematic because students with some missing data could differ in important ways from students with no missing data.
+This study was limited in some important ways. First, we chose to  operationalize achievement as final course grade. Future work could examine other meaningful outcomes. Second, we deleted 51 cases listwise from our data. This listwise deletion of cases is potentially problematic because students with some missing data could differ in important ways from students with no missing data. Last, we did not account for the ___ discussion board caveat ____.
     
 *Implications*
     -   Trace data is valuable to collect and it could be valuable for educators to consider it more thoroughly
@@ -316,6 +313,8 @@ We will delete the section of text immediately below this; it's just notes from 
 Breiman, L. (2001). Random forests. Machine Learning, 45, 5–32. doi:10.1023/A:1010933404324
 
 Liaw, A. (2018). Package 'randomForest': Breiman and Cutler's Random Forests for Classification and Regression. https://cran.r-project.org/web/packages/randomForest/randomForest.pdf
+
+Pennebaker, Boyd, Jordan, & Blackburn, 2015 - LIWC package
 
 # References
 ```{r create_r-references}
