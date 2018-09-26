@@ -83,18 +83,8 @@ Expectancy-value theory (EVT) is a key motivational framework that explains the 
 
 We investigated three research questions:
 (1) Is motivation - operationalized as interest value, utility value and perceived competence for science - relatively more predictive of course grades as compared to other online indicators of engagement?
-(2) Which types of motivation (e.g., interest value, utility value, and perceived competence) is most predictive of achievement?
-(3) Which types of trace measures (e.g., time spent on course and those associated with participating on discussion boards) are most predictive of achievement?
-
-## Notes on Intro from the call
-We welcome theoretical, methodological, empirical and technical contributions to all fields related to learning analytics. Related to our special theme the following topics are of particular interest:
-
--   Universal design for learning promotes an inclusive approach to the curriculum – how can learning analytics support curriculum design and revision from this perspective?
--   How can analytics be applied in ways that support inclusion and success?
--   How can the training of data scientists be made more inclusive?
--   What does educational success look like, and how can it be supported?
--   How can systematic biases (e.g. related to diversity) in our analytics algorithms be identified, reflected, and possibly avoided?
-
+(2) Which type of motivation (e.g., interest value, utility value, and perceived competence) is most predictive of achievement?
+(3) Which type of trace measures (e.g., time spent on course and those associated with participating on discussion boards) is most predictive of achievement?
 
 # 2. METHOD
 
@@ -231,21 +221,6 @@ RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_pe
 #Research Question 3: Most predictive trace measure
 #####
 
-RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + course_ID + cogproc + social + posemo + negemo + n,
-                             data = data_train,
-                             method = "regression", 
-                             importance = TRUE)
-
-#I don't know if we should do a separate RF for these RQs
-
-#########################################################################
-
-#Below is the most recently discussed version of our RF. Above is the new RF, 9.21.18
-
-# RF_FinalGrade <-randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + enrollment_reason + course_ID,
-# data = data_train,
-# method = "regression", 
-# importance = TRUE)
 #########################################################################
 
 #Generate Predicted classes using the model object
@@ -321,11 +296,11 @@ dd <- data.frame(data_test, lm_pred)
 
 In this study, we found that trace measures of engagement with a learning management system were more predictive of student achievement. More specifically, ______re-describe findings here_____.
 
-Limitations...
+*Limitations*
     -   The operationalization of achievement as final course grade - maybe we could look at other possible outcomes in the future.
-    -   Listwise deletion of cases = potentially problematic
+    -   Listwise deletion of cases = potentially problematic because students with some missing data could differ in important ways from students with no missing data.
     
-Implications....
+*Implications*
     -   Trace data is valuable to collect and it could be valuable for educators to consider it more thoroughly
     -   Motivation implications - is it valuable for students to post even if they are not intrinsically motivated to do so - perhaps posting itself is related to final grades (but how many posts were requiredd?)
 
