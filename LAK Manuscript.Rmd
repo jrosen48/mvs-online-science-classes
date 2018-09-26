@@ -18,27 +18,27 @@ affiliation:
     institution   : "Konstanz Business School"
 
 authornote: |
-  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
 
-  Enter author note here.
+Enter author note here.
 
 abstract: |
-  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
-  
-  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
-  
-  One sentence clearly stating the **general problem** being addressed by  this particular study.
-  
-  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
-  
-  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
-  
-  One or two sentences to put the results into a more **general context**.
-  
-  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
-  
-  <!-- https://tinyurl.com/ybremelq -->
-  
+One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
+
+Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
+
+One sentence clearly stating the **general problem** being addressed by  this particular study.
+
+One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
+
+Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
+
+One or two sentences to put the results into a more **general context**.
+
+Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
+
+<!-- https://tinyurl.com/ybremelq -->
+
 keywords          : "keywords"
 wordcount         : "X"
 
@@ -87,13 +87,13 @@ We investigated three research questions:
 (1) Is motivation - operationalized as interest value, utility value and perceived competence for science - relatively more predictive of course grades as compared to other online indicators of engagement?
 (2) Which types of motivation (e.g., interest value, utility value, and perceived competence) is most predictive of achievement?
 (3) Which types of trace measures (e.g.,  
-  - cogproc
-  - social
-  - posemo
-  - negemo
-  - perscon
-  - n (this is the number of posts)
-  are most predictive?
+- cogproc
+- social
+- posemo
+- negemo
+- perscon
+- n (this is the number of posts)
+are most predictive?
 
 ## Notes on Intro from the call
 We welcome theoretical, methodological, empirical and technical contributions to all fields related to learning analytics. Related to our special theme the following topics are of particular interest:
@@ -111,15 +111,18 @@ We welcome theoretical, methodological, empirical and technical contributions to
 # 2. METHOD
 
 ## 2.1 Participants
-Participants were ###### students enrolled in online middle school science courses in ____years____.
+
+Participants were 499 students enrolled in online middle school science courses in 2015-2016. 
 
 ## 2.2 Setting / Data Sources
 
+The setting of this study was a public, provider of individual online courses in a Midwestern state. In particular, the context was two semesters (Fall and Spring) of offerings of five online science courses (Anatomy & Physiology, Forensic Science, Oceanography, Physics, and Biology). Students completed a pre-course survey about their self-reported motivation in science — in particular, their perceived competence, utility value, and interest. We also kept track of the time students spent on the course website and their final course grades as well as their involvement in discussion forums.
 
 ## 2.3 Procedure
 
+At the beginning of the semester, students were asked to complete the pre-course survey about their perceived competence, utility value, and interest. At the end of the semester, the time students spent on the course, their final course grades, and the contents of the discussion forums were collected.
+
 ## 2.4 Data analysis
-We used `r cite_r("r-references.bib")` for all our analyses.
 
 For our analyses, we used 
 
@@ -161,16 +164,16 @@ skim(online_science_motivation)
 
 # this filters the data to not include the third semester...
 online_science_motivation <- online_science_motivation %>% 
-  filter(!str_detect(online_science_motivation$course_ID, "S217"))
+    filter(!str_detect(online_science_motivation$course_ID, "S217"))
 
 # select the relevant variables
 data <- online_science_motivation %>% 
-        select(pre_int, pre_uv,  pre_percomp, time_spent,course_ID, final_grade, subject, enrollment_reason, semester, enrollment_status, cogproc, social, posemo, negemo, n)
-        #Result: 550 obs of 15 variables
-  
+    select(pre_int, pre_uv,  pre_percomp, time_spent,course_ID, final_grade, subject, enrollment_reason, semester, enrollment_status, cogproc, social, posemo, negemo, n)
+#Result: 550 obs of 15 variables
+
 #delete cases with missing variables 
 data <- na.omit(data)
-        #Result: 499 obs of 15 variables
+#Result: 499 obs of 15 variables
 
 #look at dataset
 skim(data)
@@ -212,9 +215,9 @@ colnames(data_test)
 #Research Question 1: Is mot better predictor than trace
 #####
 RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + course_ID + cogproc + social + posemo + negemo + n,
-                             data = data_train,
-                             method = "regression", 
-                             importance = TRUE)
+                               data = data_train,
+                               method = "regression", 
+                               importance = TRUE)
 
 #####
 #Research Question 2: Most predictive motivation measure
@@ -234,14 +237,14 @@ RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_pe
 #Below is the most recently discussed version of our RF. Above is the new RF, 9.21.18
 
 # RF_FinalGrade <-randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + enrollment_reason + course_ID,
-                             # data = data_train,
-                             # method = "regression", 
-                             # importance = TRUE)
+# data = data_train,
+# method = "regression", 
+# importance = TRUE)
 #########################################################################
 
 #Generate Predicted classes using the model object
 FinalGrade_prediction <- predict(object = RF_FinalGrade,   # model object 
-                             newdata = data_test)  # train dataset
+                                 newdata = data_test)  # train dataset
 
 FinalGrade_prediction <- as.data.frame(FinalGrade_prediction)
 
@@ -288,9 +291,9 @@ Residuals_FinalGrade %>%
 
 #plot the errors in a density plot
 FinalGrade_resid_plot <- plot(density(Residuals_FinalGrade), 
-                          main = "Absolute Value of Out-of-Sample\n Residuals for Final Grade Model",
-                          xlab = "Residuals",
-                          ylab = "Density")
+                              main = "Absolute Value of Out-of-Sample\n Residuals for Final Grade Model",
+                              xlab = "Residuals",
+                              ylab = "Density")
 
 FinalGrade_resid_plot
 
@@ -300,6 +303,14 @@ varImpPlot(RF_FinalGrade)
 varImp(RF_FinalGrade) #this gives us the actual values for the variable importance MSE
 
 ```
+
+```{r, include = FALSE, eval = FALSE}
+lm_m <- lm(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + course_ID + cogproc + social + posemo + negemo + n,
+                     data = data_train)
+lm_pred <- predict(lm_m, data_test)
+dd <- data.frame(data_test, lm_pred)
+```
+
 # 4. DISCUSSION
 
 *Below are the specific questions from the LAK website that we should reflect on... maybe not just in the discussion, but also in other parts of the work as well.
