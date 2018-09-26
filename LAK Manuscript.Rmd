@@ -84,27 +84,8 @@ Expectancy-value theory (EVT) is a key motivational framework that explains the 
 We investigated three research questions:
 (1) Is motivation - operationalized as interest value, utility value and perceived competence for science - relatively more predictive of course grades as compared to other online indicators of engagement?
 (2) Which types of motivation (e.g., interest value, utility value, and perceived competence) is most predictive of achievement?
-<<<<<<< HEAD
-(3) Which types of trace measures (e.g., cognitive processing, social ______, positive emotion, negative emotion, and personal connection to the material, and number of posts? ****JOSH - can you help me describe these variables accurately?_______) are most predictive of achievement?
+(3) Which types of trace measures (e.g., time spent on course and those associated with participating on discussion boards) are most predictive of achievement?
 
-          - cogproc
-        - social
-        - posemo
-        - negemo
-        - perscon
-        - n (this is the number of posts)
-  
-=======
-(3) Which types of trace measures (e.g.,  
-- cogproc
-- social
-- posemo
-- negemo
-- perscon
-- n (this is the number of posts)
-are most predictive?
-
->>>>>>> f8159123704b65f02c90aa46a8fd12815f3d91f1
 ## Notes on Intro from the call
 We welcome theoretical, methodological, empirical and technical contributions to all fields related to learning analytics. Related to our special theme the following topics are of particular interest:
 
@@ -123,7 +104,7 @@ Participants were 499 students enrolled in online middle school science courses 
 
 ## 2.2 Setting / Data Sources
 
-The setting of this study was a public, provider of individual online courses in a Midwestern state. In particular, the context was two semesters (Fall and Spring) of offerings of five online science courses (Anatomy & Physiology, Forensic Science, Oceanography, Physics, and Biology), with a total of 36 classes. Students completed a pre-course survey about their self-reported motivation in science — in particular, their perceived competence, utility value, and interest. We also kept track of the time students spent on the course website and their final course grades as well as their involvement in discussion forums.
+The setting of this study was a public, provider of individual online courses in a Midwestern state. In particular, the context was two semesters (Fall and Spring) of offerings of five online science courses (Anatomy & Physiology, Forensic Science, Oceanography, Physics, and Biology), with a total of 36 classes. Students completed a pre-course survey about their self-reported motivation in science — in particular, their perceived competence, utility value, and interest. We also kept track of the time students spent on the course website and their final course grades as well as their involvement in discussion forums. For the discussion board data, we used the Linguistic Inquiry and Word Count (LIWC; Pennebaker, Boyd, Jordan, & Blackburn, 2015) to calculate the number of posts per student and variable for the mean levels of students' cognitive processing, positive affect, and social-related discourse evidnenced by their posts.
 
 ## 2.3 Procedure
 
@@ -236,13 +217,11 @@ colnames(data_test)
 #####
 #Research Question 1: Is mot better predictor than trace
 #####
-<<<<<<< HEAD
-=======
+
 RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + course_ID + cogproc + social + posemo + negemo + n,
                                data = data_train,
                                method = "regression", 
                                importance = TRUE)
->>>>>>> f8159123704b65f02c90aa46a8fd12815f3d91f1
 
 #####
 #Research Question 2: Most predictive motivation measure
@@ -257,8 +236,6 @@ RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_pe
                              method = "regression", 
                              importance = TRUE)
 
-<<<<<<< HEAD
-=======
 #I don't know if we should do a separate RF for these RQs
 
 #########################################################################
@@ -269,7 +246,6 @@ RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_pe
 # data = data_train,
 # method = "regression", 
 # importance = TRUE)
->>>>>>> f8159123704b65f02c90aa46a8fd12815f3d91f1
 #########################################################################
 
 #Generate Predicted classes using the model object
