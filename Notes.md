@@ -36,7 +36,9 @@ Mean squared error % increase refers to the amount that the MSE increases when t
 # Agenda for 9.21.18 Meeting
 ACTION ITEMS:
     Josh:
-    Emily:
+        -   
+    Emily: 
+        -   mean of the abs value of the differences between predicted and actual
 
     a.  Analyses Updates
         -   perscon was not in the data, I did not include it
@@ -58,6 +60,9 @@ ACTION ITEMS:
         
     4.  Division of writing labor for next 9 days (one proposition)
         - Results??
+            - abs value diff
+            - plot that shows diff
+            - variable impt.
         - Discussion??
         -   Emily
             -   Intro
@@ -72,6 +77,9 @@ ACTION ITEMS:
         -   First round of edits by Fri 28th
         -   {Emily out of town 29-30}
         -   Emily final edits and submit Oct. 1
+        
+        
+        
     
     
 # Helpful Links:
