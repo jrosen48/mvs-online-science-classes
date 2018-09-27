@@ -165,7 +165,7 @@ online_science_motivation <- online_science_motivation %>%
 
 # select the relevant variables
 data <- online_science_motivation %>% 
-        select(pre_int, pre_uv,  pre_percomp, time_spent,course_ID, final_grade, subject, enrollment_reason, semester, enrollment_status, cogproc, social, posemo, negemo, n)
+        select(pre_int, pre_uv,  pre_percomp, time_spent,course_ID, final_grade, subject, enrollment_reason, semester, enrollment_status, cogproc, social, posemo, negemo, n, WC)
         #Result: 550 obs of 15 variables
   
 #delete cases with missing variables 
@@ -211,7 +211,8 @@ colnames(data_test)
 #####
 #Research Question 1: Is mot better predictor than trace
 #####
-RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + enrollment_reason + course_ID + cogproc + social + posemo + negemo + n,
+
+RF_FinalGrade  <- randomForest (formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + enrollment_reason + course_ID + cogproc + social + posemo + negemo + n,
                              data = data_train,
                              method = "regression", 
                              importance = TRUE)
@@ -239,7 +240,6 @@ RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_pe
                              # importance = TRUE)
 #########################################################################
 
-#Generate Predicted classes using the model object
 FinalGrade_prediction <- predict(object = RF_FinalGrade,   # model object 
                              newdata = data_test)  # train dataset
 
@@ -253,7 +253,6 @@ p <- d %>%
     mutate(abs_diff = Emily_residuals(final_grade, pred_final_grade),
            diff = final_grade - pred_final_grade)
 
-#JOSH I am having trouble getting this line to run - does it work for you?
 p %>% summarize_all(funs(mean)) %>% select (pred_final_grade, abs_diff, diff)
 
 p %>% 
@@ -301,6 +300,7 @@ varImpPlot(RF_FinalGrade)
 varImp(RF_FinalGrade) #this gives us the actual values for the variable importance MSE
 
 ```
+
 # 4. DISCUSSION
 
 *Below are the specific questions from the LAK website that we should reflect on... maybe not just in the discussion, but also in other parts of the work as well.
