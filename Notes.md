@@ -18,7 +18,6 @@ Mean squared error % increase refers to the amount that the MSE increases when t
 
 -   Overall prediction of RF model w/ motivation vs. without
 -   Overall prediction of RF model w/ discussion board data and without
-
 -   For each of those above, present mean residual values.
 
 #Next steps 9.13.18
