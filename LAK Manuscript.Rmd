@@ -340,7 +340,7 @@ As more and more courses move online, data will continue to accumulate at rapid 
 
 \newpage
 
-#Works Cited
+# References
 
 Breiman, L. (2001). Random forests. Machine Learning, 45, 5–32. doi:10.1023/A:1010933404324
 
@@ -348,7 +348,6 @@ Liaw, A. (2018). Package 'randomForest': Breiman and Cutler's Random Forests for
 
 Pennebaker, Boyd, Jordan, & Blackburn, 2015 - LIWC package
 
-# References
 ```{r create_r-references}
 r_refs(file = "r-references.bib")
 ```
