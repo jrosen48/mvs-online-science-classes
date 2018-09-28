@@ -22,13 +22,13 @@ affiliation:
     institution   : "Hunter College"
 
 author_note: |
-  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
 
-  Enter author note here.
+Enter author note here.
 
 abstract: |
-  Enter abstract here. Each new line herein must be indented, like this line.
-  
+Enter abstract here. Each new line herein must be indented, like this line.
+
 keywords          : "keywords"
 wordcount         : "X"
 
@@ -198,6 +198,13 @@ RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_pe
                                data = data_train,
                                method = "regression", 
                                importance = TRUE)
+
+# Using caret
+
+rf_fit <- train(final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + course_ID + cogproc + social + posemo + negemo + n, 
+                data = data_train, 
+                method = 'cforest')
+
 # RF_FinalGrade
 #####
 #Research Question 2: Most predictive motivation measure
@@ -217,14 +224,17 @@ FinalGrade_prediction <- as.data.frame(FinalGrade_prediction)
 
 d <- data.frame(data_test, FinalGrade_prediction)
 
+# for RMSE
+caret::RMSE(d$final_grade, d$FinalGrade_prediction)
+
 # p <- d %>%
 #     as_tibble() %>%
 #     rename(pred_final_grade = FinalGrade_prediction) %>%
 #     mutate(abs_diff = Emily_residuals(final_grade, pred_final_grade),
 #            diff = final_grade - pred_final_grade)
-# # 
-# p %>% select (pred_final_grade, abs_diff, diff) %>% summarize_all(funs(mean)) 
 # 
+# p %>% select (pred_final_grade, abs_diff, diff) %>% summarize_all(funs(mean))
+#  
 # p %>% 
 #     select(final_grade, pred_final_grade) %>% 
 #     gather(key, val, final_grade:pred_final_grade) %>% 
@@ -275,7 +285,7 @@ varImp(RF_FinalGrade) #this gives us the actual values for the variable importan
 
 ```{r, include = FALSE, eval = FALSE}
 lm_m <- lm(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + course_ID + cogproc + social + posemo + negemo + n,
-                     data = data_train)
+           data = data_train)
 lm_pred <- predict(lm_m, data_test)
 dd <- data.frame(data_test, lm_pred)
 ```
@@ -301,16 +311,16 @@ to_plot <- varImp(RF_FinalGrade) %>%
 to_plot$Variable <- as.factor(to_plot$Variable)
 
 to_plot$Variable <- forcats::fct_recode(to_plot$Variable, 
-                    `Pre-interest` = "pre_int",
-                    `Pre-utility val.` = "pre_uv", 
-                    `Pre-perceived comp.` = "pre_percomp",
-                    `Time spent` = "time_spent",
-                    `Course` = "course_ID",
-                    `Cog. proc.` = "cogproc",
-                    `Social` = "social", 
-                    `Pos. aff.` = "posemo",
-                    `Neg. aff.` = "negemo",
-                    `N posts` = "n")
+                                        `Pre-interest` = "pre_int",
+                                        `Pre-utility val.` = "pre_uv", 
+                                        `Pre-perceived comp.` = "pre_percomp",
+                                        `Time spent` = "time_spent",
+                                        `Course` = "course_ID",
+                                        `Cog. proc.` = "cogproc",
+                                        `Social` = "social", 
+                                        `Pos. aff.` = "posemo",
+                                        `Neg. aff.` = "negemo",
+                                        `N posts` = "n")
 
 ggplot(to_plot, aes(x = reorder(Variable, Overall), y = Overall)) +
     geom_col() +
@@ -333,7 +343,7 @@ Surprisingly, we found that trace measures of engagement with a learning managem
 ## Limitations
 
 This study was limited in some important ways. First, we chose to  operationalize achievement as final course grade. Future work could examine other meaningful outcomes. Second, we deleted 51 cases listwise from our data. This listwise deletion of cases is potentially problematic because students with some missing data could differ in important ways from students with no missing data. Last, we did not account for the number of discussion posts that were required in a given course and it is important that future research endeavor to explore whether this plays a role in predicting the outcome.
-    
+
 ## Implications
 
 As more and more courses move online, data will continue to accumulate at rapid rates. It is important that educators and administrators consider the implications of computer-mediated instruction. This study suggests that the measurement of students' engagement with courses is helpful in understanding their achievement in these courses. Trace data is valuable to collect and it could be valuable for educators to consider it more thoroughly. This study also offers implications in terms of the motivation constructs studied. The importance of the engagement with the course through discussion board posts in terms of predicting final grade suggests that perhaps it is valuable for students to post even if they are not intrinsically motivated to do so. Future research should explore the complex relations between student motivation and course engagement, especially insofar as to examine characteristics of the online experience that could make these relations different than the patterns of relations that would be evident in a face-to-face classroom.
