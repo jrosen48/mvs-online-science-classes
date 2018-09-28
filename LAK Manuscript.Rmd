@@ -52,7 +52,8 @@ library("papaja")
 ```{r analysis-preferences}
 # Seed for random number generation
 set.seed(42)
-knitr::opts_chunk$set(cache.extra = knitr::rand_seed, eval = TRUE, echo = FALSE, results = 'hide')
+knitr::opts_chunk$set(cache.extra = knitr::rand_seed, eval = TRUE, echo = FALSE, results = 'hide',
+                      message = FALSE, warning = FALSE)
 ```
 
 **CCS Concepts**
