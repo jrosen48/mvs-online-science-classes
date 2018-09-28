@@ -201,9 +201,9 @@ RF_FinalGrade  <-randomForest (formula = final_grade ~ pre_int + pre_uv + pre_pe
 
 # Using caret
 
-rf_fit <- train(final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + course_ID + cogproc + social + posemo + negemo + n, 
-                data = data_train, 
-                method = 'cforest')
+# rf_fit <- train(final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + course_ID + cogproc + social + posemo + negemo + n, 
+#                 data = data_train, 
+#                 method = 'cforest')
 
 # RF_FinalGrade
 #####
@@ -227,14 +227,14 @@ d <- data.frame(data_test, FinalGrade_prediction)
 # for RMSE
 caret::RMSE(d$final_grade, d$FinalGrade_prediction)
 
-# p <- d %>%
-#     as_tibble() %>%
-#     rename(pred_final_grade = FinalGrade_prediction) %>%
-#     mutate(abs_diff = Emily_residuals(final_grade, pred_final_grade),
-#            diff = final_grade - pred_final_grade)
-# 
-# p %>% select (pred_final_grade, abs_diff, diff) %>% summarize_all(funs(mean))
-#  
+p <- d %>%
+    as_tibble() %>%
+    rename(pred_final_grade = FinalGrade_prediction) %>%
+    mutate(abs_diff = Emily_residuals(final_grade, pred_final_grade),
+           diff = final_grade - pred_final_grade)
+ 
+p %>% select (pred_final_grade, abs_diff, diff) %>% summarize_all(funs(mean))
+  
 # p %>% 
 #     select(final_grade, pred_final_grade) %>% 
 #     gather(key, val, final_grade:pred_final_grade) %>% 
