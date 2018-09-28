@@ -1,5 +1,5 @@
-\documentclass[acmart]{apa6}
-
+\documentclass[,acmart]{apa6}
+\usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
@@ -9,167 +9,109 @@
 \else % if luatex or xelatex
   \ifxetex
     \usepackage{mathspec}
-    \usepackage{xltxtra,xunicode}
   \else
     \usepackage{fontspec}
   \fi
-  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
-  \newcommand{\euro}{€}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
-\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdftitle={Exploring predictors of achievement in online science classes},
+            pdfauthor={Emily Bovee, Joshua Rosenberg, \& John Ranellucci},
+            pdfkeywords={keywords},
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
 
-% Table formatting
-\usepackage{longtable, booktabs}
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+
+  \title{Exploring predictors of achievement in online science classes}
+    \author{Emily Bovee\textsuperscript{1}, Joshua Rosenberg\textsuperscript{2}, \&
+John Ranellucci\textsuperscript{3}}
+    \date{}
+  
+\shorttitle{Predictors of achievement}
+\affiliation{
+\vspace{0.5cm}
+\textsuperscript{1} Michigan State University\\\textsuperscript{2} University of Tennessee, Knoxville\\\textsuperscript{3} Hunter College}
+\keywords{keywords\newline\indent Word count: X}
+\usepackage{csquotes}
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
+
+\usepackage{longtable}
 \usepackage{lscape}
-% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
-\usepackage{multirow}		% Table styling
-\usepackage{tabularx}		% Control Column width
-\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
-\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+\usepackage{multirow}
+\usepackage{tabularx}
+\usepackage[flushleft]{threeparttable}
+\usepackage{threeparttablex}
 
-% Create new environments so endfloat can handle them
-% \newenvironment{ltable}
-%   {\begin{landscape}\begin{center}\begin{threeparttable}}
-%   {\end{threeparttable}\end{center}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\begin{center}\begin{ThreePartTable}}{\end{ThreePartTable}\end{center}\end{landscape}}
 
-\newenvironment{lltable}
-  {\begin{landscape}\begin{center}\begin{ThreePartTable}}
-  {\end{ThreePartTable}\end{center}\end{landscape}}
-
-  \usepackage{ifthen} % Only add declarations when endfloat package is loaded
-  \ifthenelse{\equal{\string acmart}{\string man}}{%
-   \DeclareDelayedFloatFlavor{ThreePartTable}{table} % Make endfloat play with longtable
-   % \DeclareDelayedFloatFlavor{ltable}{table} % Make endfloat play with lscape
-   \DeclareDelayedFloatFlavor{lltable}{table} % Make endfloat play with lscape & longtable
-  }{}%
-
-
-
-% The following enables adjusting longtable caption width to table width
-% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
 \makeatletter
 \newcommand\LastLTentrywidth{1em}
 \newlength\longtablewidth
 \setlength{\longtablewidth}{1in}
-\newcommand\getlongtablewidth{%
- \begingroup
-  \ifcsname LT@\roman{LT@tables}\endcsname
-  \global\longtablewidth=0pt
-  \renewcommand\LT@entry[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}%
-  \@nameuse{LT@\roman{LT@tables}}%
-  \fi
-\endgroup}
-
-
-  \usepackage{graphicx}
-  \makeatletter
-  \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-  \def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-  \makeatother
-  % Scale images if necessary, so that they will not overflow the page
-  % margins by default, and it is still possible to overwrite the defaults
-  % using explicit options in \includegraphics[width, height, ...]{}
-  \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\ifxetex
-  \usepackage[setpagesize=false, % page size defined by xetex
-              unicode=false, % unicode breaks when used with xetex
-              xetex]{hyperref}
-\else
-  \usepackage[unicode=true]{hyperref}
-\fi
-\hypersetup{breaklinks=true,
-            pdfauthor={},
-            pdftitle={Exploring predictors of achievement in online science classes},
-            colorlinks=true,
-            citecolor=blue,
-            urlcolor=blue,
-            linkcolor=black,
-            pdfborder={0 0 0}}
-\urlstyle{same}  % don't use monospace font for urls
-
-\setlength{\parindent}{0pt}
-%\setlength{\parskip}{0pt plus 0pt minus 0pt}
-
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-
-
-% Manuscript styling
-\captionsetup{font=singlespacing,justification=justified}
-\usepackage{csquotes}
-\usepackage{upgreek}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
 
 
 
-\usepackage{tikz} % Variable definition to generate author note
+\authornote{Add complete departmental affiliations for each
+author here. Each new line herein must be indented, like this line.
 
-% fix for \tightlist problem in pandoc 1.14
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+Enter author note here.
 
-% Essential manuscript parts
-  \title{Exploring predictors of achievement in online science classes}
+Correspondence concerning this article should be addressed to Emily
+Bovee, Postal address. E-mail:
+\href{mailto:my@email.com}{\nolinkurl{my@email.com}}}
 
-  \shorttitle{Predictors of achievement}
-
-
-  \author{Emily Bovee\textsuperscript{1}, Joshua Rosenberg\textsuperscript{2}, \& John Ranellucci\textsuperscript{3}}
-
-  % \def\affdep{{"", "", ""}}%
-  % \def\affcity{{"", "", ""}}%
-
-  \affiliation{
-    \vspace{0.5cm}
-          \textsuperscript{1} Michigan State University\\
-          \textsuperscript{2} University of Tennessee, Knoxville\\
-          \textsuperscript{3} Hunter College  }
-
-  \authornote{
-    Add complete departmental affiliations for each author here. Each new
-    line herein must be indented, like this line.
-    
-    Enter author note here.
-    
-    Correspondence concerning this article should be addressed to Emily
-    Bovee, Postal address. E-mail:
-    \href{mailto:my@email.com}{\nolinkurl{my@email.com}}
-  }
+\abstract{
+Enter abstract here. Each new line herein must be indented, like this
+line.
 
 
-  \abstract{Enter abstract here. Each new line herein must be indented, like this
-line.}
-  \keywords{keywords \\
+}
 
-    \indent Word count: X
-  }
-
-
-
-
-
-\usepackage{amsthm}
-\newtheorem{theorem}{Theorem}[section]
-\newtheorem{lemma}{Lemma}[section]
-\theoremstyle{definition}
-\newtheorem{definition}{Definition}[section]
-\newtheorem{corollary}{Corollary}[section]
-\newtheorem{proposition}{Proposition}[section]
-\theoremstyle{definition}
-\newtheorem{example}{Example}[section]
-\theoremstyle{definition}
-\newtheorem{exercise}{Exercise}[section]
-\theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-\newtheorem*{solution}{Solution}
 \begin{document}
-
 \maketitle
-
-\setcounter{secnumdepth}{0}
-
-
 
 \textbf{CCS Concepts}
 
@@ -334,6 +276,48 @@ To interpret our findings, we examined three main things: (1) predictive
 accuracy of the random forest model, (2) variable importance, and (3)
 variance explained by the final random forest model.
 
+\begin{verbatim}
+## Warning: package 'tidyr' was built under R version 3.4.4
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'purrr' was built under R version 3.4.4
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'dplyr' was built under R version 3.4.4
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'caret' was built under R version 3.4.4
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'skimr' was built under R version 3.4.4
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'mice' was built under R version 3.4.4
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'randomForest' was built under R version 3.4.4
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'stringr' was built under R version 3.4.4
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: package 'bindrcpp' was built under R version 3.4.4
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in if (attr(list(...)[[1]], "class") == "mids")
+## return(cbind.mids(...)) else return(base::cbind(...)): the condition has
+## length > 1 and only the first element will be used
+\end{verbatim}
+
 \section{3. RESULTS}\label{results}
 
 The predictive accuracy of our random forest model was assessed by
@@ -342,7 +326,7 @@ dataset and the actual values. We found that the absolute value of the
 average difference between the predicted and actual value for final
 grades was 11.8\%. This indicates
 
-The variance explained by our random forest model was 57.21\%. Below, we
+The variance explained by our random forest model was 55.49\%. Below, we
 will discuss in detail the specific findings for each of our research
 questions, which concern the variable importance plots. Variable
 importance plots are interpreted based on the incremental percent change
@@ -392,7 +376,7 @@ the most predictive of all the variables in the model.
 \section{4. DISCUSSION}\label{discussion}
 
 Overall, our random forest model explained a large amount of the
-variance in achievement in this study (e.g., 57.21\%). However, the
+variance in achievement in this study (e.g., 55.49\%). However, the
 predictive accuracy of the model was not tuned as perfectly as it could
 have been: the absolute value of the average difference between the
 predicted final grade and actual final grade was 11.8\%. This
@@ -460,10 +444,6 @@ Pennebaker, Boyd, Jordan, \& Blackburn, 2015 - LIWC package
 \hypertarget{refs}{}
 
 \endgroup
-
-
-
-
 
 
 \end{document}
