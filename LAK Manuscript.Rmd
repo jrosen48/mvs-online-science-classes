@@ -21,16 +21,10 @@ affiliation:
   - id            : "3"
     institution   : "Hunter College"
 
-author_note: |
-Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+abstract: "Test"
 
-Enter author note here.
-
-abstract: |
-Enter abstract here. Each new line herein must be indented, like this line.
-
-keywords          : "keywords"
-wordcount         : "X"
+keywords          : ""
+wordcount         : ""
 
 bibliography      : ["r-references.bib"]
 
@@ -56,13 +50,13 @@ knitr::opts_chunk$set(cache.extra = knitr::rand_seed, eval = TRUE, echo = FALSE,
                       message = FALSE, warning = FALSE)
 ```
 
-**CCS Concepts**
+<!-- **CCS Concepts** -->
 
-- Applied computing ~ Education ~ Learning management systems
-- Applied computing ~ Education ~ E-learning
-- Applied computing ~ Education ~ Computer-managed instruction
+<!-- - Applied computing ~ Education ~ Learning management systems -->
+<!-- - Applied computing ~ Education ~ E-learning -->
+<!-- - Applied computing ~ Education ~ Computer-managed instruction -->
 
-**Keywords**
+<!-- **Keywords** -->
 
 # 1. INTRODUCTION
 
@@ -226,15 +220,15 @@ FinalGrade_prediction <- as.data.frame(FinalGrade_prediction)
 d <- data.frame(data_test, FinalGrade_prediction)
 
 # for RMSE
-caret::RMSE(d$final_grade, d$FinalGrade_prediction)
+#caret::RMSE(d$final_grade, d$FinalGrade_prediction)
 
-p <- d %>%
-    as_tibble() %>%
-    rename(pred_final_grade = FinalGrade_prediction) %>%
-    mutate(abs_diff = Emily_residuals(final_grade, pred_final_grade),
-           diff = final_grade - pred_final_grade)
- 
-p %>% select (pred_final_grade, abs_diff, diff) %>% summarize_all(funs(mean))
+# p <- d %>%
+#     as_tibble() %>%
+#     rename(pred_final_grade = FinalGrade_prediction) %>%
+#     mutate(abs_diff = Emily_residuals(final_grade, pred_final_grade),
+#            diff = final_grade - pred_final_grade)
+#  
+# p %>% select (pred_final_grade, abs_diff, diff) %>% summarize_all(funs(mean))
   
 # p %>% 
 #     select(final_grade, pred_final_grade) %>% 
@@ -305,7 +299,7 @@ Research question 1 asked whether motivation was a better predictor of achieveme
 
 Research question 2 asked which of the motivation variables was most predictive of course achievement. As presented in Table 1, among motivation variables, utility value was most important, followed by perceived competence. Interest value was the least predictive of the motivation variables; indeed, interest value was the least predictive of all variables in the random forest model.
 
-```{r}
+```{r, fig.cap = "Variable importance (change in Mean Square Error [MSE])"}
 to_plot <- varImp(RF_FinalGrade) %>% 
     rownames_to_column("Variable")
 
