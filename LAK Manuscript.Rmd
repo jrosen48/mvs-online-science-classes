@@ -21,9 +21,9 @@ affiliation:
   - id            : "3"
     institution   : "Hunter College"
 
-abstract: "Test"
+abstract: "We used random forest modeling to explore predictors of virtual middle school science students’ achievement. Using a robust dataset that includes behavioral trace data from the course learning management system and self-reported indicators of students’ academic motivation, we examined which indicators were most predictive of achievement. Framed in the Expectancy-Value Theory of academic motivation, we explored students’ perceived competence for science and their value for science as potential predictors of achievement. We found that trace measures of engagement with the discussion board more strongly predicted final course grade than did indicators of science motivation."
 
-keywords          : ""
+keywords          : "Science, motivation, random forest, machine learning, learning management system, educational success, achievement"
 wordcount         : ""
 
 bibliography      : ["r-references.bib"]
@@ -229,7 +229,7 @@ d <- data.frame(data_test, FinalGrade_prediction)
 #            diff = final_grade - pred_final_grade)
 #  
 # p %>% select (pred_final_grade, abs_diff, diff) %>% summarize_all(funs(mean))
-  
+
 # p %>% 
 #     select(final_grade, pred_final_grade) %>% 
 #     gather(key, val, final_grade:pred_final_grade) %>% 
@@ -279,23 +279,32 @@ varImp(RF_FinalGrade) #this gives us the actual values for the variable importan
 ```
 
 ```{r, include = FALSE, eval = FALSE}
-lm_m <- lm(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + course_ID + cogproc + social + posemo + negemo + n,
+
+rf_m <- randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + cogproc + social + posemo + negemo + n,
+                     method = "regression",
+                     data = data_train)
+rf_pred <- predict(rf_m, data_test)
+dd1 <- data.frame(data_test, rf_pred)
+caret::RMSE(dd1$final_grade, dd1$rf_pred)
+
+lm_m <- lm(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + cogproc + social + posemo + negemo + n,
            data = data_train)
 lm_pred <- predict(lm_m, data_test)
-dd <- data.frame(data_test, lm_pred)
+dd2 <- data.frame(data_test, lm_pred)
+caret::RMSE(dd2$final_grade, dd2$lm_pred)
 ```
 
 # 3. RESULTS 
 
-The predictive accuracy of our random forest model was assessed by examining the difference between the predicted values for the testing dataset and the actual values. We found that the absolute value of the average difference between the predicted and actual value for final grades was 11.8%. This indicates
+The predictive accuracy of our random forest model was assessed by examining the difference between the predicted values for the testing dataset and the actual values. We found that the absolute value of the average difference between the predicted and actual value for final grades was 11.8%. This indicates... [add]
 
 The variance explained by our random forest model was 55.49%. Below, we will discuss in detail the specific findings for each of our research questions, which concern the variable importance plots. Variable importance plots are interpreted based on the incremental percent change in mean-squared-error (MSE) if a given variable is scrambled in the original dataset (REF). In other words, variable importance plots help to answer the question: if a variable is scrambled so as not to relate to the outcome in any systematic way, how much does this randomization affect the mean squared error? If a variable's scrambling results in a large change in MSE, it is thought to be more important.
 
-## Research Question 1
+## Results for Research Question 1
 
 Research question 1 asked whether motivation was a better predictor of achievement than behavioral engagement indicators. With respect to research question 1, the variable importance plot for final grade indicated that the change in mean squared error was more strongly affected by trace variables than motivation measures. The most predictive variable was the number of discussion posts, followed by the amount of time spent in the course. The course identifier, evidence for negative affect in the discussion posts, and level of cognitive processing associated with the discussion posts were the predictors that were next in terms of importance. All of these predictors were more important than all of the motivation variables.
 
-## Research Question 2
+## Results for Research Question 2
 
 Research question 2 asked which of the motivation variables was most predictive of course achievement. As presented in Table 1, among motivation variables, utility value was most important, followed by perceived competence. Interest value was the least predictive of the motivation variables; indeed, interest value was the least predictive of all variables in the random forest model.
 
@@ -325,7 +334,7 @@ ggplot(to_plot, aes(x = reorder(Variable, Overall), y = Overall)) +
     coord_flip()
 ```
 
-## Research Question 3
+## Results for Research Question 3
 
 Research question 3 asked which of the trace variables was most predictive of course achievement. The most predictive variable in terms of achievement was the number of posts on the discussion board. This was the most predictive of all the variables in the model.
 
