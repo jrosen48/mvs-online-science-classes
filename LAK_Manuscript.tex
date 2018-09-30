@@ -187,20 +187,23 @@ is the delivery of online instruction, which is becoming more prevalent:
 in 2007, over 3.9 million U.S. students were enrolled one or more online
 courses (Allen \& Seaman, 2008). We use a robust data set, which
 includes self-reported motivation as well as behavioral trace data
-collected from a learning management system to identify predictors of
-final course grade. Our work examines the idea of educational success in
-terms of student interactions with an online science course. In the
+collected from a learning management system (LMS) to identify predictors
+of final course grade. Our work examines the idea of educational success
+in terms of student interactions with an online science course. In the
 current study, we examine the educational experiences of students in
 online science courses at a virtual middle school in order to
 characterize their motivation to achieve and their tangible engagement
-with the course in terms of trace measures.
+with the course in terms of behavioral trace measures.
 
 One meaningful perspective from which to consider students' engagement
 with online courses is related to their motivation to achieve. More
 specifically, it is important to consider how and why students are
-engaging with the course. To consider the psychological mechanisms
+engaging with the course. Considering the psychological mechanisms
 behind achievement is valuable because doing so may help to identify
-meaningful points of intervention for educators.
+meaningful points of intervention for educators and for researchers and
+administrators in online \emph{and} face-to-face courses interested in
+the intersection between behavioral trace measures and students'
+motivational and affective experiences in such courses.
 
 Expectancy-value theory (EVT) is a key motivational framework that
 explains the reasons that students are motivated to achieve (Eccles et
@@ -249,11 +252,11 @@ Biology), with a total of 36 classes. Students completed a pre-course
 survey about their self-reported motivation in science --- in
 particular, their perceived competence, utility value, and interest. We
 also kept track of the time students spent on the course (obtained from
-the Learning Management System) and their final course grades as well as
-their involvement in discussion forums. For the discussion board data,
-we used the Linguistic Inquiry and Word Count (LIWC; Pennebaker, Boyd,
-Jordan, \& Blackburn, 2015) to calculate the number of posts per student
-and variables for the mean levels of students' cognitive processing,
+the LMS, Blackboard) and their final course grades as well as their
+involvement in discussion forums. For the discussion board data, we used
+the Linguistic Inquiry and Word Count (LIWC; Pennebaker, Boyd, Jordan,
+\& Blackburn, 2015) to calculate the number of posts per student and
+variables for the mean levels of students' cognitive processing,
 positive affect, negative affect, and social-related discourse evidenced
 by their posts.
 
@@ -467,22 +470,31 @@ be unhelpful. Rather, this study offers interesting insights as to the
 relative importance of motivation constructs and trace measures of
 engagement in terms of explanatory power in explaining middle school
 students' online science course grades. Surprisingly, we found that
-trace measures of engagement with a learning management system were more
-predictive of student achievement than motivation variables.
+trace measures of engagement with a LMS were more predictive of student
+achievement than motivation variables.
 
 \subsection{Limitations}\label{limitations}
 
 This study was limited in some important ways. First, we chose to
-operationalize achievement as final course grade. Future work could
-examine other meaningful outcomes. Additionally, we did not account for
-the number of discussion posts that were required in a given course and
-it is important that future research endeavor to explore whether this
-plays a role in predicting the outcome. Finally, we while we used a
-sophisticated machine learning modeling approach, there are some changes
-to how we could specify the final models: Namely, we could consider the
-number of variables considered at each split as a tuning parameter by
-consider a wider range of values: Some research has shown larger values
-to be associated with better fit (Kuhn, 2010.)
+operationalize achievement as final course grade. This has strengths (it
+is easy to interpret and is somewhat comparable across courses, for
+example) but also some weaknesses. Future work could examine other
+meaningful outcomes - not only achievement-related outcomes.
+Additionally, we did not account for the number of discussion posts that
+were required in a given course and it is important that future research
+endeavor to explore whether this plays a role in predicting the outcome.
+Also, we while we used a fairly sophisticated machine learning modeling
+approach, there are some changes to how we could specify the final
+models: Namely, we could consider the number of variables considered at
+each split as a tuning parameter by consider a wider range of values:
+Some research has shown larger values to be associated with better fit
+(Kuhn, 2010.). Finally, and on a technical note, in order to better
+understand how successful the modeling strategy was, we may wish to
+explore not only the fit of the model in terms of the \(R^2\) (for the
+training dataset) and the predictive accuracy (for the test dataset),
+but also the cross-validated fit of the model, which can be obtained by
+resampling or using \emph{k}-folds cross-validation on the training
+dataset.
 
 \subsection{Implications}\label{implications}
 
@@ -493,14 +505,18 @@ that the measurement of students' engagement with courses is helpful in
 understanding their achievement in these courses. Trace data is valuable
 to collect and it could be valuable for educators to consider it more
 thoroughly. This study also offers implications in terms of the
-motivation constructs studied. The importance of the engagement with the
-course through discussion board posts in terms of predicting final grade
-suggests that perhaps it is valuable for students to post even if they
-are not intrinsically motivated to do so. Future research should explore
-the complex relations between student motivation and course engagement,
-especially insofar as to examine characteristics of the online
-experience that could make these relations different than the patterns
-of relations that would be evident in a face-to-face classroom.
+motivation constructs studied as part of learning analytics research,
+namely, that motivation as measured through self-report surveys seems to
+be important, but not as important as the behaviors reflected in the
+trace data generated by and collected through the LMS. The importance of
+the engagement with the course through discussion board posts in terms
+of predicting final grade suggests that perhaps it is valuable for
+students to post even if they are not intrinsically motivated to do so.
+Future research, them, could explore the complex relations between
+student motivation and course engagement, especially insofar as to
+examine characteristics of the online experience that could make these
+relations different than the patterns of relations that would be evident
+in a face-to-face classroom.
 
 \section{References}\label{references}
 
