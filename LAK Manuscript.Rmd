@@ -100,7 +100,7 @@ A random forest is well suited to the research questions that we had here becaus
 
 The outcome was the final course grade that the student earned. The predictor variables included motivation variables (interest value, utility value, and science perceived competence) and trace variables (the amount of time spent in the course, the course name, the number of discussion board posts over the course of the semester, the mean level of cognitive processing evident in discussion board posts, the positive affect evident in discussion board posts, the negative affect evident in discussion board posts, and the social-related discourse evident in their discussion board posts). We used this random forest model to address all three of our research questions.
 
-In this study, we used the package randomForest in R (Liaw, 2018). 500 trees were grown as part of our random forest. We partitioned the data before conducting the main analysis so that neither the training and testing data set would not be disproportionately representative of high-achieving or low-achieving students. The training data set consisted of 80% of the original data (n = 400 cases), whereas the testing data set consisted of 20% of the original data (n = 99 cases). We built our random forest model on the training data set, and then evaluated the model on the testing data set. Three variables were tried at each node. To interpret our findings, we examined three main things: (1) predictive accuracy of the random forest model, (2) variable importance, and (3) variance explained by the final random forest model.
+In this study, we used the package randomForest in R (Liaw, 2018). 500 trees were grown as part of our random forest. We partitioned the data before conducting the main analysis so that neither the training and testing data set would not be disproportionately representative of high-achieving or low-achieving students. The training data set consisted of 80% of the original data (*n* = 400 cases), whereas the testing data set consisted of 20% of the original data (*n* = 99 cases). We built our random forest model on the training data set, and then evaluated the model on the testing data set. Three variables were tried at each node. To interpret our findings, we examined three main things: (1) predictive accuracy of the random forest model, (2) variable importance, and (3) variance explained by the final random forest model.
 
 ```{r, echo = FALSE}
 #-----------------------------
@@ -283,7 +283,7 @@ First, we assessed the model based calculations specific to the data used to fit
 
 In addition to using the training data set to calculate the $R^2$ value, as we used a training and a test (with *n* = 99 observations) data set, we were able to compare how well model predicted the outcome, students' final grade. Thus, the predictive accuracy of our random forest model was assessed by examining the difference between the predicted values for the testing data set and the actual values. Using the 99 test set observations and their predictions, we calculated the Root Mean Square Error (RMSE), which was 12.70. Given that students' final grades were measured on a 0-100 scale, this represents, in substantive terms, modest - but not excellent - predictive accuracy (especially given that the *SD* for students' final grade in the test set was 19.50).
 
-We also visually compared students' observed (or actual) and their predict final grades, as in Figure 2. This helped us to see that while the model predicted the final grade accurately overall ($M_observed-final-grade$ = `r round(mean(data_test$final_grade), 3)`; $M_predicted-final-grade$ = `r round(mean(rf_pred), 3)`), the model predicted grades closer to the mean more frequently than as observed in the training data set and predicted very high grades less frequently than observed in the training data set.
+We also visually compared students' observed (or actual) and their predict final grades, as in Figure 2. This helped us to see that while the model predicted the final grade accurately overall ($M_{\text{observed-final-grade}}$ = `r round(mean(data_test$final_grade), 3)`; $M_{\text{predicted-final-grade}}$ = `r round(mean(rf_pred), 3)`), the model predicted grades closer to the mean more frequently than as observed in the training data set and predicted very high grades less frequently than observed in the training data set.
 
 ```{r, fig.cap = "Distribution of students' observed (actual) and predicted final grade"}
 library(magrittr)
@@ -338,7 +338,31 @@ ggplot(to_plot, aes(x = reorder(Variable, Overall), y = Overall)) +
 
 ## Results for Research Question 3
 
-Research question 3 asked which of the trace variables was most predictive of course achievement. The most predictive variable in terms of achievement was the number of posts on the discussion board. This was the most predictive of all the variables in the model.
+Research question 3 asked which of the trace variables was most predictive of course achievement. The most predictive variable in terms of achievement was the number of posts in the discussion forums. Given its importance, we sought to explore how the strength of relation between students' predicted and observed final grade might vary as a function of the number of posts. We turned the number of posts into a categorical variable with three levels and examined whether the relationship between students' predicted and observed final grade appeared to differ.
+
+```{r}
+tp <- p %>%
+    select(final_grade, pred_final_grade, n) %>%
+    mutate(n_cat = case_when(
+        n < 17 ~ "<16", 
+        n >= 17 & n < 33 ~ "16-32",
+        n >= 33 ~ "33-49",
+        TRUE ~ as.character(n)))
+
+ggplot(tp, aes(x = final_grade, y = pred_final_grade, group = n_cat, color = n_cat)) +
+    geom_point() +
+    geom_smooth(method = "lm", se = F) +
+    ylim(0, 100) +
+    xlim(0, 100) +
+    scale_color_viridis_d("Number of Posts") +
+    theme_bw() +
+    ylab("Predicted Final Grade") +
+    xlab("Observed Final Grade")
+```
+
+For the 99 observations in the test dataset, this figure revealed there to be a stronger relationship between the predicted and observed final grade for students who posted fewer times to the discussion forum. For students with the most posts (between 33 and 49), the relationship appeared to be nearly zero, suggesting that *other* (important) variables mattered more for these students (or that the model was predicting these students' final grades poorly, a postsibility given that the model appeared to predict the final grades of the students with the highest final grades poorly).
+
+The number of posts to the discussion forum by students was the most predictive of all the variables in the model, followed by the time students spent on the course. After the course students were in (not considered a trace measure), the negative affect evidenced by students' discussion forum posts and the extent of the cognitive processing evidenced by them were the next most important.
 
 # 4. DISCUSSION
 

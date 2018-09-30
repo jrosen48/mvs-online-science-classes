@@ -322,13 +322,14 @@ trees were grown as part of our random forest. We partitioned the data
 before conducting the main analysis so that neither the training and
 testing data set would not be disproportionately representative of
 high-achieving or low-achieving students. The training data set
-consisted of 80\% of the original data (n = 400 cases), whereas the
-testing data set consisted of 20\% of the original data (n = 99 cases).
-We built our random forest model on the training data set, and then
-evaluated the model on the testing data set. Three variables were tried
-at each node. To interpret our findings, we examined three main things:
-(1) predictive accuracy of the random forest model, (2) variable
-importance, and (3) variance explained by the final random forest model.
+consisted of 80\% of the original data (\emph{n} = 400 cases), whereas
+the testing data set consisted of 20\% of the original data (\emph{n} =
+99 cases). We built our random forest model on the training data set,
+and then evaluated the model on the testing data set. Three variables
+were tried at each node. To interpret our findings, we examined three
+main things: (1) predictive accuracy of the random forest model, (2)
+variable importance, and (3) variance explained by the final random
+forest model.
 
 \section{3. RESULTS}\label{results}
 
@@ -357,10 +358,11 @@ test set was 19.50).
 We also visually compared students' observed (or actual) and their
 predict final grades, as in Figure 2. This helped us to see that while
 the model predicted the final grade accurately overall
-(\(M_observed-final-grade\) = 78.69; \(M_predicted-final-grade\) =
-78.83), the model predicted grades closer to the mean more frequently
-than as observed in the training data set and predicted very high grades
-less frequently than observed in the training data set.
+(\(M_{\text{observed-final-grade}}\) = 78.69;
+\(M_{\text{predicted-final-grade}}\) = 78.83), the model predicted
+grades closer to the mean more frequently than as observed in the
+training data set and predicted very high grades less frequently than
+observed in the training data set.
 
 \begin{figure}
 \centering
@@ -417,8 +419,36 @@ Square Error {[}MSE{]})}
 
 Research question 3 asked which of the trace variables was most
 predictive of course achievement. The most predictive variable in terms
-of achievement was the number of posts on the discussion board. This was
-the most predictive of all the variables in the model.
+of achievement was the number of posts in the discussion forums. Given
+its importance, we sought to explore how the strength of relation
+between students' predicted and observed final grade might vary as a
+function of the number of posts. We turned the number of posts into a
+categorical variable with three levels and examined whether the
+relationship between students' predicted and observed final grade
+appeared to differ.
+
+\begin{figure}
+\centering
+\includegraphics{LAK_Manuscript_files/figure-latex/unnamed-chunk-5-1.pdf}
+\caption{}
+\end{figure}
+
+For the 99 observations in the test dataset, this figure revealed there
+to be a stronger relationship between the predicted and observed final
+grade for students who posted fewer times to the discussion forum. For
+students with the most posts (between 33 and 49), the relationship
+appeared to be nearly zero, suggesting that \emph{other} (important)
+variables mattered more for these students (or that the model was
+predicting these students' final grades poorly, a postsibility given
+that the model appeared to predict the final grades of the students with
+the highest final grades poorly).
+
+The number of posts to the discussion forum by students was the most
+predictive of all the variables in the model, followed by the time
+students spent on the course. After the course students were in (not
+considered a trace measure), the negative affect evidenced by students'
+discussion forum posts and the extent of the cognitive processing
+evidenced by them were the next most important.
 
 \section{4. DISCUSSION}\label{discussion}
 
