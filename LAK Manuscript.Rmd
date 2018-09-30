@@ -1,5 +1,5 @@
 ---
-title             : "Exploring predictors of achievement in online science classes"
+title             : "Do self-reported motivation measures or behavioral traces matter more? Exploring predictors of achievement in online science classes"
 shorttitle        : "Predictors of achievement"
 
 author: 
@@ -98,9 +98,7 @@ For our analyses, we used Random Forest modeling (Breiman, 2001). Random forest 
 
 Whereas some machine learning approaches (e.g., boosted trees) would utilize an iterative model-building approach, random forest estimates all the decision trees at once. In this way, each tree is independent of every other tree. Thus, the random forest algorithm provides a robust regression approach that is distinct from other modeling approaches. The final random forest model aggregates the findings across all the separate trees in the forest in order to offer a collection of "most important" variables as well as a percent variance explained for the final model.
 
-A random forest is well suited to the research questions that we had here because it allows for nonlinear modeling. We hypothesized complex relationships between students' motivation, their engagement with the online courses, and their achievement. For this reason, a traditional regressive or structural equation model would have been insufficient to model the parameter space we were interesting in modeling. 
-
-Our random forest model had one outcome and eleven predictors. A common tuning parameter for machine learning models is the number of variables considered at each split (Kuhn, 2008): We considered three for this analysis. 
+A random forest is well suited to the research questions that we had here because it allows for nonlinear modeling. We hypothesized complex relationships between students' motivation, their engagement with the online courses, and their achievement. For this reason, a traditional regressive or structural equation model would have been insufficient to model the parameter space we were interesting in modeling. Our random forest model had one outcome and eleven predictors. A common tuning parameter for machine learning models is the number of variables considered at each split (Kuhn, 2008): We considered three variables at each splot for this analysis. 
 
 The outcome was the final course grade that the student earned. The predictor variables included motivation variables (interest value, utility value, and science perceived competence) and trace variables (the amount of time spent in the course, the course name, the number of discussion board posts over the course of the semester, the mean level of cognitive processing evident in discussion board posts, the positive affect evident in discussion board posts, the negative affect evident in discussion board posts, and the social-related discourse evident in their discussion board posts). We used this random forest model to address all three of our research questions.
 
@@ -273,20 +271,12 @@ Residuals_FinalGrade <- Emily_residuals(FinalGrade_data$FinalGrade_prediction , 
 
 ```
 
-```{r, include = FALSE, eval = FALSE}
+```{r, include = FALSE, eval = TRUE}
 
 rf_m <- randomForest(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + cogproc + social + posemo + negemo + n,
                      method = "regression",
                      data = data_train)
 rf_pred <- predict(rf_m, data_test)
-dd1 <- data.frame(data_test, rf_pred)
-caret::RMSE(dd1$final_grade, dd1$rf_pred)
-
-# lm_m <- lm(formula = final_grade ~ pre_int + pre_uv + pre_percomp + time_spent + cogproc + social + posemo + negemo + n,
-#            data = data_train)
-# lm_pred <- predict(lm_m, data_test)
-# dd2 <- data.frame(data_test, lm_pred)
-# caret::RMSE(dd2$final_grade, dd2$lm_pred)
 ```
 
 # 3. RESULTS 
@@ -295,7 +285,7 @@ First, we assessed the model based calculations specific to the data used to fit
 
 In addition to using the training data set to calculate the $R^2$ value, as we used a training and a test (with *n* = 99 observations) data set, we were able to compare how well model predicted the outcome, students' final grade. Thus, the predictive accuracy of our random forest model was assessed by examining the difference between the predicted values for the testing data set and the actual values. Using the 99 test set observations and their predictions, we calculated the Root Mean Square Error (RMSE), which was 12.70. Given that students' final grades were measured on a 0-100 scale, this represents, in substantive terms, modest - but not excellent - predictive accuracy (especially given that the *SD* for students' final grade in the test set was 19.50).
 
-We also visually compared students' observed (or actual) and their predict final grades, as in Figure 2. This helped us to see that while the model predicted the final grade accurately overall ($M__observed-final-grade$ = `r round(mean(data_test$final_grade), 3)`; $M_predicted-final-grade$ = `r round(mean(rf_pred), 3)`), the model predicted grades closer to the mean more frequently than as observed in the training data set and predicted very high grades less frequently than observed in the training data set.
+We also visually compared students' observed (or actual) and their predict final grades, as in Figure 2. This helped us to see that while the model predicted the final grade accurately overall ($M_observed-final-grade$ = `r round(mean(data_test$final_grade), 3)`; $M_predicted-final-grade$ = `r round(mean(rf_pred), 3)`), the model predicted grades closer to the mean more frequently than as observed in the training data set and predicted very high grades less frequently than observed in the training data set.
 
 ```{r, fig.cap = "Distribution of students' observed (actual) and predicted final grade"}
 library(magrittr)
@@ -366,9 +356,11 @@ This study was limited in some important ways. First, we chose to  operationaliz
 
 As more and more courses move online, data will continue to accumulate at rapid rates. It is important that educators and administrators consider the implications of computer-mediated instruction. This study suggests that the measurement of students' engagement with courses is helpful in understanding their achievement in these courses. Trace data is valuable to collect and it could be valuable for educators to consider it more thoroughly. This study also offers implications in terms of the motivation constructs studied. The importance of the engagement with the course through discussion board posts in terms of predicting final grade suggests that perhaps it is valuable for students to post even if they are not intrinsically motivated to do so. Future research should explore the complex relations between student motivation and course engagement, especially insofar as to examine characteristics of the online experience that could make these relations different than the patterns of relations that would be evident in a face-to-face classroom.
 
-\newpage
-
 # References
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
 
 Allen, I. E. & Seaman, J. (2008). *Staying the course: online education in the United States*. Needham, MA: Sloan Consortium.
 
@@ -385,14 +377,6 @@ Kuhn, M. (2008). Caret package. *Journal of Statistical Software, 28*(5), 1-26.
 Liaw, A. (2018). *Package 'randomForest': Breiman and Cutler's Random Forests for Classification and Regression.* https://cran.r-project.org/web/packages/randomForest/randomForest.pdf
 
 Pennebaker, J.W., Boyd, R.L., Jordan, K., & Blackburn, K. (2015). *The development and psychometric properties of LIWC2015.* Austin, TX: University of Texas at Austin.
-
-```{r create_r-references}
-r_refs(file = "r-references.bib")
-```
-
-\begingroup
-\setlength{\parindent}{-0.5in}
-\setlength{\leftskip}{0.5in}
 
 <div id = "refs"></div>
 \endgroup

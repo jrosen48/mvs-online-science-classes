@@ -82,7 +82,7 @@
 \fi
 \hypersetup{breaklinks=true,
             pdfauthor={},
-            pdftitle={Exploring predictors of achievement in online science classes},
+            pdftitle={Do self-reported motivation measures or behavioral traces matter more? Exploring predictors of achievement in online science classes},
             colorlinks=true,
             citecolor=blue,
             urlcolor=blue,
@@ -110,7 +110,8 @@
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 % Essential manuscript parts
-  \title{Exploring predictors of achievement in online science classes}
+  \title{Do self-reported motivation measures or behavioral traces matter more?
+Exploring predictors of achievement in online science classes}
 
   \shorttitle{Predictors of achievement}
 
@@ -184,15 +185,15 @@ ways in which educators can most effectively collect and use data to
 support student learning (Hamilton et al., 2009). One area of interest
 is the delivery of online instruction, which is becoming more prevalent:
 in 2007, over 3.9 million U.S. students were enrolled one or more online
-courses (Allen \& Seaman, 2008). We use a robust dataset, which includes
-self-reported motivation as well as behavioral trace data collected from
-a learning management system to identify predictors of final course
-grade. Our work examines the idea of educational success in terms of
-student interactions with an online science course. In the current
-study, we examine the educational experiences of students in online
-science courses at a virtual middle school in order to characterize
-their motivation to achieve and their tangible engagement with the
-course in terms of trace measures.
+courses (Allen \& Seaman, 2008). We use a robust data set, which
+includes self-reported motivation as well as behavioral trace data
+collected from a learning management system to identify predictors of
+final course grade. Our work examines the idea of educational success in
+terms of student interactions with an online science course. In the
+current study, we examine the educational experiences of students in
+online science courses at a virtual middle school in order to
+characterize their motivation to achieve and their tangible engagement
+with the course in terms of trace measures.
 
 One meaningful perspective from which to consider students' engagement
 with online courses is related to their motivation to achieve. More
@@ -269,7 +270,7 @@ forums were collected.
 
 The random forest algorithm does not accept cases with missing data.
 Thus, we deleted cases listwise if data were missing. This decision
-eliminated 51 cases from our original dataset, to bring us to our final
+eliminated 51 cases from our original data set, to bring us to our final
 sample size of 499 unique students.
 
 \subsubsection{Main models}\label{main-models}
@@ -299,12 +300,11 @@ here because it allows for nonlinear modeling. We hypothesized complex
 relationships between students' motivation, their engagement with the
 online courses, and their achievement. For this reason, a traditional
 regressive or structural equation model would have been insufficient to
-model the parameter space we were interesting in modeling.
-
-Our random forest model had one outcome and eleven predictors. A common
-tuning parameter for machine learning models is the number of variables
-considered at each split (Kuhn, 2008): We considered three for this
-analysis.
+model the parameter space we were interesting in modeling. Our random
+forest model had one outcome and eleven predictors. A common tuning
+parameter for machine learning models is the number of variables
+considered at each split (Kuhn, 2008): We considered three variables at
+each splot for this analysis.
 
 The outcome was the final course grade that the student earned. The
 predictor variables included motivation variables (interest value,
@@ -320,41 +320,63 @@ address all three of our research questions.
 In this study, we used the package randomForest in R (Liaw, 2018). 500
 trees were grown as part of our random forest. We partitioned the data
 before conducting the main analysis so that neither the training and
-testing dataset would not be disproportionately representative of
-high-achieving or low-achieving students. The training dataset consisted
-of 80\% of the original data (n = 400 cases), whereas the testing
-dataset consisted of 20\% of the original data (n = 99 cases). We built
-our random forest model on the training dataset, and then evaluated the
-model on the testing dataset. Three variables were tried at each node.
-To interpret our findings, we examined three main things: (1) predictive
-accuracy of the random forest model, (2) variable importance, and (3)
-variance explained by the final random forest model.
+testing data set would not be disproportionately representative of
+high-achieving or low-achieving students. The training data set
+consisted of 80\% of the original data (n = 400 cases), whereas the
+testing data set consisted of 20\% of the original data (n = 99 cases).
+We built our random forest model on the training data set, and then
+evaluated the model on the testing data set. Three variables were tried
+at each node. To interpret our findings, we examined three main things:
+(1) predictive accuracy of the random forest model, (2) variable
+importance, and (3) variance explained by the final random forest model.
 
 \section{3. RESULTS}\label{results}
 
-The predictive accuracy of our random forest model was assessed by
-examining the difference between the predicted values for the testing
-dataset and the actual values. We found that the absolute value of the
-average difference between the predicted and actual value for final
-grades was 11.8\%. This indicates\ldots{} {[}add{]}
+First, we assessed the model based calculations specific to the data
+used to fit the model. Using the data in the training set (with \emph{n}
+= 400 observations), we calculated the \(R^2\) value, indicating the
+proportion of the variability in the outcome (final grade) accounted for
+by the nine predictor variables. The \(R^2\) value was .528, which
+suggested that for this sample and partition of the data, just more than
+one-half of the variability in the outcome could be attributed to the
+predictors that were included.
 
-For a simple training dataset, {[}add{]}
+In addition to using the training data set to calculate the \(R^2\)
+value, as we used a training and a test (with \emph{n} = 99
+observations) data set, we were able to compare how well model predicted
+the outcome, students' final grade. Thus, the predictive accuracy of our
+random forest model was assessed by examining the difference between the
+predicted values for the testing data set and the actual values. Using
+the 99 test set observations and their predictions, we calculated the
+Root Mean Square Error (RMSE), which was 12.70. Given that students'
+final grades were measured on a 0-100 scale, this represents, in
+substantive terms, modest - but not excellent - predictive accuracy
+(especially given that the \emph{SD} for students' final grade in the
+test set was 19.50).
+
+We also visually compared students' observed (or actual) and their
+predict final grades, as in Figure 2. This helped us to see that while
+the model predicted the final grade accurately overall
+(\(M_observed-final-grade\) = 78.69; \(M_predicted-final-grade\) =
+78.83), the model predicted grades closer to the mean more frequently
+than as observed in the training data set and predicted very high grades
+less frequently than observed in the training data set.
 
 \begin{figure}
 \centering
 \includegraphics{LAK_Manuscript_files/figure-latex/unnamed-chunk-3-1.pdf}
 \caption{\label{fig:unnamed-chunk-3}Distribution of students' observed
-(actual) and predicted final grade (for test set data)}
+(actual) and predicted final grade}
 \end{figure}
 
-The variance explained by our random forest model was 55.49\%. Below, we
-will discuss in detail the specific findings for each of our research
-questions, which concern the variable importance plots. Variable
-importance plots are interpreted based on the incremental percent change
-in mean-squared-error (MSE) if a given variable is scrambled in the
-original dataset (REF). In other words, variable importance plots help
-to answer the question: if a variable is scrambled so as not to relate
-to the outcome in any systematic way, how much does this randomization
+Below, we will discuss in detail the specific findings for each of our
+research questions, which concern the variable importance plots.
+Variable importance plots are interpreted based on the incremental
+percent change in mean-squared-error (MSE) if a given variable is
+scrambled in the original data set (James, Witten, Hastie, \&
+Tibshirani, 2013). In other words, variable importance plots help to
+answer the question: if a variable is scrambled so as not to relate to
+the outcome in any systematic way, how much does this randomization
 affect the mean squared error? If a variable's scrambling results in a
 large change in MSE, it is thought to be more important.
 
@@ -447,14 +469,15 @@ of the online experience that could make these relations different than
 the patterns of relations that would be evident in a face-to-face
 classroom.
 
-\newpage
-
 \section{References}\label{references}
 
-Allen, I. E. \& Seaman, J. (2008). Staying the course: online education
-in the United States.Needham, MA: Sloan Consortium.
+\begingroup
+\setlength{\parindent}{-0.5in} \setlength{\leftskip}{0.5in}
 
-Breiman, L. (2001). Random forests. Machine Learning, 45, 5--32.
+Allen, I. E. \& Seaman, J. (2008). \emph{Staying the course: online
+education in the United States}. Needham, MA: Sloan Consortium.
+
+Breiman, L. (2001). \emph{Random forests. Machine Learning, 45}, 5--32.
 \url{doi:10.1023/A:1010933404324}
 
 Hamilton, L., Halverson, R., Jackson, S., Mandinach, E., Supovitz, J.,
@@ -471,6 +494,9 @@ decision making. In P.A. Moss (Ed.), \emph{Evidence and decision making}
 1, pp.~105--131). Chicago, IL: National Society for the Study of
 Education.
 
+James, G., Witten, D., Hastie, T., \& Tibshirani, R. (2013). \emph{An
+introduction to statistical learning}. New York, NY: Springer.
+
 Kuhn, M. (2008). Caret package. \emph{Journal of Statistical Software,
 28}(5), 1-26.
 
@@ -481,9 +507,6 @@ Cutler's Random Forests for Classification and Regression.}
 Pennebaker, J.W., Boyd, R.L., Jordan, K., \& Blackburn, K. (2015).
 \emph{The development and psychometric properties of LIWC2015.} Austin,
 TX: University of Texas at Austin.
-
-\begingroup
-\setlength{\parindent}{-0.5in} \setlength{\leftskip}{0.5in}
 
 \hypertarget{refs}{}
 
