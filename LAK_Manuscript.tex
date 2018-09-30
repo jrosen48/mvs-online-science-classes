@@ -128,8 +128,8 @@
 
   \authornote{
     Correspondence concerning this article should be addressed to Emily
-    Bovee, Postal address. E-mail:
-    \href{mailto:my@email.com}{\nolinkurl{my@email.com}}
+    Bovee, . E-mail:
+    \href{mailto:ebovee@msu.edu}{\nolinkurl{ebovee@msu.edu}}
   }
 
 
@@ -177,14 +177,17 @@ management system, educational success, achievement \\
 
 \section{1. INTRODUCTION}\label{introduction}
 
-In recent years, educational institutions have begun to collect student
-data (REF). One area of interest is the delivery of fully online
-instruction, which is becoming more prevalent (REF). Specifically,
-online education is available for K-12 students who cannot or prefer not
-to attend a brick-and-mortar school (REF). We are fortunate to have a
-robust dataset which includes self-reported motivation as well as
-behavioral trace data which was collected from the learning management
-system. Our work examines the idea of educational success in terms of
+\enquote{Data-driven decision making} is implemented in different ways
+at different schools, leading educators to hold divergent attitudes
+about it (Ikemoto \& Marsh, 2007). Thus, there is a need to explore the
+ways in which educators can most effectively collect and use data to
+support student learning (Hamilton et al., 2009). One area of interest
+is the delivery of online instruction, which is becoming more prevalent:
+in 2007, over 3.9 million U.S. students were enrolled one or more online
+courses (Allen \& Seaman, 2008). We use a robust dataset, which includes
+self-reported motivation as well as behavioral trace data collected from
+a learning management system to identify predictors of final course
+grade. Our work examines the idea of educational success in terms of
 student interactions with an online science course. In the current
 study, we examine the educational experiences of students in online
 science courses at a virtual middle school in order to characterize
@@ -279,15 +282,17 @@ forest is random in two main ways: first, each tree is only allowed to
 \enquote{see} and split on a limited number of predictors instead of all
 the predictors in the parameter space; second, a random subsample of the
 data is used to grow each individual tree, such that no individual case
-is weighted too heavily in the final prediction. Whereas some machine
-learning approaches (e.g., boosted trees) would utilize an iterative
-model-building approach, random forest estimates all the decision trees
-at once. In this way, each tree is independent of every other tree.
-Thus, the random forest algorithm provides a robust regression approach
-that is distinct from other modeling approaches. The final random forest
-model aggregates the findings across all the separate trees in the
-forest in order to offer a collection of \enquote{most important}
-variables as well as a percent variance explained for the final model.
+is weighted too heavily in the final prediction.
+
+Whereas some machine learning approaches (e.g., boosted trees) would
+utilize an iterative model-building approach, random forest estimates
+all the decision trees at once. In this way, each tree is independent of
+every other tree. Thus, the random forest algorithm provides a robust
+regression approach that is distinct from other modeling approaches. The
+final random forest model aggregates the findings across all the
+separate trees in the forest in order to offer a collection of
+\enquote{most important} variables as well as a percent variance
+explained for the final model.
 
 A random forest is well suited to the research questions that we had
 here because it allows for nonlinear modeling. We hypothesized complex
@@ -296,8 +301,12 @@ online courses, and their achievement. For this reason, a traditional
 regressive or structural equation model would have been insufficient to
 model the parameter space we were interesting in modeling.
 
-Our random forest model had one outcome and eleven predictors. The
-outcome was the final course grade that the student earned. The
+Our random forest model had one outcome and eleven predictors. A common
+tuning parameter for machine learning models is the number of variables
+considered at each split (Kuhn, 2008): We considered three for this
+analysis.
+
+The outcome was the final course grade that the student earned. The
 predictor variables included motivation variables (interest value,
 utility value, and science perceived competence) and trace variables
 (the amount of time spent in the course, the course name, the number of
@@ -327,7 +336,16 @@ The predictive accuracy of our random forest model was assessed by
 examining the difference between the predicted values for the testing
 dataset and the actual values. We found that the absolute value of the
 average difference between the predicted and actual value for final
-grades was 11.8\%. This indicates
+grades was 11.8\%. This indicates\ldots{} {[}add{]}
+
+For a simple training dataset, {[}add{]}
+
+\begin{figure}
+\centering
+\includegraphics{LAK_Manuscript_files/figure-latex/unnamed-chunk-3-1.pdf}
+\caption{\label{fig:unnamed-chunk-3}Distribution of students' observed
+(actual) and predicted final grade (for test set data)}
+\end{figure}
 
 The variance explained by our random forest model was 55.49\%. Below, we
 will discuss in detail the specific findings for each of our research
@@ -340,7 +358,8 @@ to the outcome in any systematic way, how much does this randomization
 affect the mean squared error? If a variable's scrambling results in a
 large change in MSE, it is thought to be more important.
 
-\subsection{Research Question 1}\label{research-question-1}
+\subsection{Results for Research Question
+1}\label{results-for-research-question-1}
 
 Research question 1 asked whether motivation was a better predictor of
 achievement than behavioral engagement indicators. With respect to
@@ -354,7 +373,8 @@ processing associated with the discussion posts were the predictors that
 were next in terms of importance. All of these predictors were more
 important than all of the motivation variables.
 
-\subsection{Research Question 2}\label{research-question-2}
+\subsection{Results for Research Question
+2}\label{results-for-research-question-2}
 
 Research question 2 asked which of the motivation variables was most
 predictive of course achievement. As presented in Table 1, among
@@ -365,12 +385,13 @@ all variables in the random forest model.
 
 \begin{figure}
 \centering
-\includegraphics{LAK_Manuscript_files/figure-latex/unnamed-chunk-3-1.pdf}
-\caption{\label{fig:unnamed-chunk-3}Variable importance (change in Mean
+\includegraphics{LAK_Manuscript_files/figure-latex/unnamed-chunk-4-1.pdf}
+\caption{\label{fig:unnamed-chunk-4}Variable importance (change in Mean
 Square Error {[}MSE{]})}
 \end{figure}
 
-\subsection{Research Question 3}\label{research-question-3}
+\subsection{Results for Research Question
+3}\label{results-for-research-question-3}
 
 Research question 3 asked which of the trace variables was most
 predictive of course achievement. The most predictive variable in terms
@@ -381,18 +402,18 @@ the most predictive of all the variables in the model.
 
 Overall, our random forest model explained a large amount of the
 variance in achievement in this study (e.g., 55.49\%). However, the
-predictive accuracy of the model was not tuned as perfectly as it could
-have been: the absolute value of the average difference between the
-predicted final grade and actual final grade was 11.8\%. This
-discrepancy suggests that whereas our model did a good job at explaining
-variance in the outcome of achievement, it did not perform as well in
-its prediction of \enquote{unseen} test data as would be ideal. Future
-research should thus explore whether the predictive accuracy of the
-model could be further developed. Even so, our predictive accuracy is
-not so low as to be unhelpful. Rather, this study offers interesting
-insights as to the relative importance of motivation constructs and
-trace measures of enagement in terms of explanatory power in explaining
-middle school students' online science course grades.
+predictive accuracy of the model might ideally be higher: the absolute
+value of the average difference between the predicted final grade and
+actual final grade was 11.8\%. This discrepancy suggests that whereas
+our model did a good job at explaining variance in the outcome of
+achievement, it did not perform as well in its prediction of
+\enquote{unseen} test data as would be ideal. Future research should
+thus explore whether the predictive accuracy of the model could be
+further developed. Even so, our predictive accuracy is not so low as to
+be unhelpful. Rather, this study offers interesting insights as to the
+relative importance of motivation constructs and trace measures of
+engagement in terms of explanatory power in explaining middle school
+students' online science course grades.
 
 Surprisingly, we found that trace measures of engagement with a learning
 management system were more predictive of student achievement than
@@ -402,13 +423,10 @@ motivation variables.
 
 This study was limited in some important ways. First, we chose to
 operationalize achievement as final course grade. Future work could
-examine other meaningful outcomes. Second, we deleted 51 cases listwise
-from our data. This listwise deletion of cases is potentially
-problematic because students with some missing data could differ in
-important ways from students with no missing data. Last, we did not
-account for the number of discussion posts that were required in a given
-course and it is important that future research endeavor to explore
-whether this plays a role in predicting the outcome.
+examine other meaningful outcomes. Additionally, we did not account for
+the number of discussion posts that were required in a given course and
+it is important that future research endeavor to explore whether this
+plays a role in predicting the outcome.
 
 \subsection{Implications}\label{implications}
 
@@ -433,14 +451,36 @@ classroom.
 
 \section{References}\label{references}
 
+Allen, I. E. \& Seaman, J. (2008). Staying the course: online education
+in the United States.Needham, MA: Sloan Consortium.
+
 Breiman, L. (2001). Random forests. Machine Learning, 45, 5--32.
 \url{doi:10.1023/A:1010933404324}
 
-Liaw, A. (2018). Package \enquote{randomForest}: Breiman and Cutler's
-Random Forests for Classification and Regression.
+Hamilton, L., Halverson, R., Jackson, S., Mandinach, E., Supovitz, J.,
+\& Wayman, J. (2009). \emph{Using student achievement data to support
+instructional decision making (NCEE 2009-4067).} Washington, DC:
+National Center for Education Evaluation and Regional Assistance,
+Institute of Education Sciences, U.S. Department of Education. Retrieved
+from \url{http://ies.ed.gov/ncee/wwc/PracticeGuide.aspx?sid=12}
+
+Ikemoto, G. S., \& Marsh, J. A. (2007). Cutting through the
+\enquote{data driven} mantra: Different conceptions of data-driven
+decision making. In P.A. Moss (Ed.), \emph{Evidence and decision making}
+(National Society for the Study of Education Yearbook, Vol. 106, Issue
+1, pp.~105--131). Chicago, IL: National Society for the Study of
+Education.
+
+Kuhn, M. (2008). Caret package. \emph{Journal of Statistical Software,
+28}(5), 1-26.
+
+Liaw, A. (2018). \emph{Package \enquote{randomForest}: Breiman and
+Cutler's Random Forests for Classification and Regression.}
 \url{https://cran.r-project.org/web/packages/randomForest/randomForest.pdf}
 
-Pennebaker, Boyd, Jordan, \& Blackburn, 2015 - LIWC package
+Pennebaker, J.W., Boyd, R.L., Jordan, K., \& Blackburn, K. (2015).
+\emph{The development and psychometric properties of LIWC2015.} Austin,
+TX: University of Texas at Austin.
 
 \begingroup
 \setlength{\parindent}{-0.5in} \setlength{\leftskip}{0.5in}
