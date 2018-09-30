@@ -293,10 +293,12 @@ p %>%
     ggplot(aes(x = val, fill = key, color = key)) +
     geom_density(alpha = .4) +
     theme_bw() +
-    scale_color_discrete("", labels = c("Observed values", "Predicted values")) +
-    scale_fill_discrete("", labels = c("Observed values", "Predicted values")) +
+    #scale_color_discrete("", labels = c("Observed values", "Predicted values")) +
+    #scale_fill_discrete("", labels = c("Observed values", "Predicted values")) +
     ylab("Density") + 
-    xlab("Final Grade")
+    xlab("Final Grade") +
+    scale_color_viridis_d("", labels = c("Observed values", "Predicted values")) +
+    scale_fill_viridis_d("", labels = c("Observed values", "Predicted values"))
 ```
 
 Below, we will discuss in detail the specific findings for each of our research questions, which concern the variable importance plots. Variable importance plots are interpreted based on the incremental percent change in mean-squared-error (MSE) if a given variable is scrambled in the original data set (James, Witten, Hastie, & Tibshirani, 2013). In other words, variable importance plots help to answer the question: if a variable is scrambled so as not to relate to the outcome in any systematic way, how much does this randomization affect the mean squared error? If a variable's scrambling results in a large change in MSE, it is thought to be more important.
@@ -373,7 +375,7 @@ This study was limited in some important ways. First, we chose to  operationaliz
 
 ## Implications
 
-As more and more courses move online, data will continue to accumulate at rapid rates. It is important that educators and administrators consider the implications of computer-mediated instruction. This study suggests that the measurement of students' engagement with courses is helpful in understanding their achievement in these courses. Trace data is valuable to collect and it could be valuable for educators to consider it more thoroughly. This study also offers implications in terms of the motivation constructs studied. The importance of the engagement with the course through discussion board posts in terms of predicting final grade suggests that perhaps it is valuable for students to post even if they are not intrinsically motivated to do so. Future research should explore the complex relations between student motivation and course engagement, especially insofar as to examine characteristics of the online experience that could make these relations different than the patterns of relations that would be evident in a face-to-face classroom.
+As more K-12 courses move online, data will continue to accumulate at rapid rates. It is important that educators and administrators consider the implications of computer-mediated instruction. This study suggests that the measurement of students' engagement with courses is helpful in understanding their achievement in these courses. Trace data is valuable to collect and it could be valuable for educators to consider it more thoroughly. This study also offers implications in terms of the motivation constructs studied. The importance of the engagement with the course through discussion board posts in terms of predicting final grade suggests that perhaps it is valuable for students to post even if they are not intrinsically motivated to do so. Future research should explore the complex relations between student motivation and course engagement, especially insofar as to examine characteristics of the online experience that could make these relations different than the patterns of relations that would be evident in a face-to-face classroom.
 
 # References
 
